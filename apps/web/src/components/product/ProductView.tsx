@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'motion/react';
@@ -9,14 +8,11 @@ import { money, pick } from '@/lib/format';
 import { useCart } from '@/lib/cart';
 import Pic from '../Pic';
 import Reel from '../Reel';
-import ARButton from './ARButton';
 
-const Viewer3D = dynamic(() => import('./Viewer3D'), { ssr: false });
 const isKid = (s: string) => /^\d+$/.test(s);
 
 export default function ProductView({ initial, family, business }: { initial: Product; family: Product[]; business: Pick<Business, 'whatsapp' | 'transferDiscountPct' | 'shippingText' | 'installmentsText'> }) {
   const [p, setP] = useState(initial);
-  const [tab, setTab] = useState<'fotos' | '3d'>(initial.model ? '3d' : 'fotos');
   const [size, setSize] = useState<string | null>(null);
   const [qty, setQty] = useState(1);
   const [slide, setSlide] = useState(0);
@@ -44,6 +40,11 @@ export default function ProductView({ initial, family, business }: { initial: Pr
     add({ variantId: variant.id, productId: p.id, slug: p.slug, name: p.name, size: variant.size, color: p.colorName, price: variant.price, image: pick(front, 320), max: variant.stock }, qty);
   };
   const sizes = useMemo(() => p.variants, [p]);
+  // galería: los videos de la prenda en la cancha primero (si tiene) y después las fotos
+  const slides = useMemo(() => [
+    ...p.reels.map((r) => ({ key: `v${r.id}`, video: r.video, label: r.caption ?? p.name, poster: r.video.poster })),
+    ...p.images.map((im) => ({ key: `i${im.id}`, img: im })),
+  ] as ({ key: string; video: typeof p.reels[number]['video']; label: string; poster: typeof p.images[number] | null; img?: undefined } | { key: string; img: typeof p.images[number]; video?: undefined })[], [p]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-24 pt-4 md:px-6 md:pt-8">
@@ -55,40 +56,30 @@ export default function ProductView({ initial, family, business }: { initial: Pr
       <div className="grid gap-8 lg:grid-cols-[1.25fr_1fr] lg:gap-12">
         {/* medios */}
         <div className="lg:sticky lg:top-24 lg:self-start">
-          {p.model && (
-            <div className="mb-3 inline-flex rounded-full bg-white p-1 ring-1 ring-black/10" role="tablist" aria-label="Vista">
-              {(['3d', 'fotos'] as const).map((t) => (
-                <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)} className={clsx('t-cond h-9 rounded-full px-4 text-sm transition', tab === t ? 'bg-ink text-white' : '')}>{t === '3d' ? 'Girar en 3D' : `Fotos (${p.images.length})`}</button>
-              ))}
-            </div>
-          )}
           <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-tile)] bg-[#ebe9e3] md:aspect-square">
-            {tab === '3d' && p.model ? (
-              <Viewer3D url={p.model.glb} poster={pick(front, 960)} garment={p.garment} label={p.name} />
-            ) : (
-              <>
-                <div className="no-scrollbar flex h-full snap-x snap-mandatory overflow-x-auto" onScroll={(e) => setSlide(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}>
-                  {p.images.map((im, i) => (
-                    <Pic key={im.id} img={im} className="h-full w-full shrink-0 snap-center" sizes="(min-width:1024px) 55vw, 100vw" priority={i === 0} alt={im.alt ?? p.name} />
-                  ))}
-                </div>
-                <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
-                  {p.images.map((im, i) => <span key={im.id} className={clsx('h-1.5 rounded-full bg-white transition-all', slide === i ? 'w-5' : 'w-1.5 opacity-60')} />)}
-                </div>
-              </>
+            <div className="no-scrollbar flex h-full snap-x snap-mandatory overflow-x-auto" onScroll={(e) => setSlide(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}>
+              {slides.map((sl, i) => sl.video
+                ? <Reel key={sl.key} video={sl.video} crop="v" rounded={false} className="h-full w-full shrink-0 snap-center" label={sl.label} />
+                : <Pic key={sl.key} img={sl.img} className="h-full w-full shrink-0 snap-center" sizes="(min-width:1024px) 55vw, 100vw" priority={i === 0} alt={sl.img.alt ?? p.name} />)}
+            </div>
+            {slides.length > 1 && (
+              <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
+                {slides.map((sl, i) => <span key={sl.key} className={clsx('h-1.5 rounded-full bg-white transition-all', slide === i ? 'w-5' : 'w-1.5 opacity-60')} />)}
+              </div>
             )}
           </div>
-          {tab === 'fotos' && (
-            <div className="no-scrollbar mt-3 hidden gap-2 overflow-x-auto md:flex">
-              {p.images.map((im, i) => (
-                <button key={im.id} aria-label={`Foto ${i + 1}`} className={clsx('h-20 w-16 shrink-0 overflow-hidden rounded-lg ring-2', slide === i ? 'ring-ink' : 'ring-transparent')}
+          <div className="no-scrollbar mt-3 hidden gap-2 overflow-x-auto md:flex">
+            {slides.map((sl, i) => {
+              const thumb = sl.video ? sl.poster : sl.img;
+              return (
+                <button key={sl.key} aria-label={sl.video ? 'Video' : `Foto ${i + 1}`} className={clsx('relative h-20 w-16 shrink-0 overflow-hidden rounded-lg bg-night ring-2', slide === i ? 'ring-ink' : 'ring-transparent')}
                   onClick={(e) => { const sc = (e.currentTarget.parentElement!.previousElementSibling as HTMLElement).querySelector('.snap-x') as HTMLElement; sc?.scrollTo({ left: sc.clientWidth * i, behavior: 'smooth' }); setSlide(i); }}>
-                  <Pic img={im} className="h-full w-full" sizes="80px" />
+                  {thumb && <Pic img={thumb} className="h-full w-full" sizes="80px" />}
+                  {sl.video && <span className="absolute inset-0 grid place-items-center bg-black/25 text-white" aria-hidden><svg width="18" height="18" viewBox="0 0 14 14"><path d="M3 1.5v11l9-5.5z" fill="currentColor" /></svg></span>}
                 </button>
-              ))}
-            </div>
-          )}
-          {p.model && <div className="mt-3 flex flex-wrap items-center gap-3"><ARButton glb={p.model.glb} usdz={p.model.usdz} name={p.name} poster={pick(front, 720)} />{tab === '3d' && <span className="t-cond text-sm text-mute">Arrastrá para girarla · pellizcá para acercar</span>}</div>}
+              );
+            })}
+          </div>
         </div>
 
         {/* info */}
@@ -160,20 +151,6 @@ export default function ProductView({ initial, family, business }: { initial: Pr
         </div>
       </div>
 
-      {p.reels.length > 0 && (
-        <section className="mt-16" aria-labelledby="accion">
-          <h2 id="accion" className="t-head text-[clamp(2rem,5vw,3rem)]">En acción</h2>
-          <p className="mt-1 text-mute">Así se ve en la cancha, en los videos de @broxpadel.</p>
-          <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
-            {p.reels.map((r) => (
-              <figure key={r.id}>
-                <Reel video={r.video} crop="v" className="aspect-[9/16]" label={r.caption ?? p.name} />
-                <figcaption className="t-cond mt-2 text-sm text-mute">{r.caption} {r.igUrl && <a href={r.igUrl} target="_blank" rel="noopener" className="underline underline-offset-4">Ver en Instagram</a>}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-      )}
 
       <AnimatePresence>
         {guide && p.sizeGuide && (

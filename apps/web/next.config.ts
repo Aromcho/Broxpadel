@@ -12,11 +12,5 @@ const nextConfig: NextConfig = {
       { source: '/media/:path*', destination: `${API}/media/:path*` },
     ];
   },
-  async headers() {
-    return [
-      { source: '/hdri/:path*', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
-    ];
-  },
-  experimental: { optimizePackageImports: ['three', '@react-three/drei'] },
 };
 export default nextConfig;

@@ -1,6 +1,6 @@
 # Brox Padel · tienda online
 
-Tienda online de **BROX Padel** (Villa Gesell): remeras y shorts de pádel con los videos de la cancha de fondo en la portada, prendas que se giran en 3D y se ven en realidad aumentada, carrito, Mercado Pago, transferencia con descuento y pedido por WhatsApp, más un panel para manejar todo desde el celular.
+Tienda online de **BROX Padel** (Villa Gesell): remeras y shorts de pádel con los videos de la cancha de fondo en la portada, el video de cada prenda en la cancha, carrito, Mercado Pago, transferencia con descuento y pedido por WhatsApp, más un panel para manejar todo desde el celular.
 
 Todo el contenido es real: productos, precios, talles y fotos de la tienda Tiendanube de la marca; videos de los reels de [@broxpadel](https://www.instagram.com/broxpadel/); logo vectorizado de sus publicaciones.
 
@@ -10,7 +10,7 @@ apps/
   web/      Next.js 16 (App Router) + Tailwind 4 + motion · three.js / React Three Fiber · GSAP + Lenis
 media/
   curated/  fotos limpias por producto y recortes de reels (de acá sale el catálogo inicial)
-  3d/       prendas 3D: optimized/ (.glb para la web) y usdz/ (AR en iPhone)
+  3d/       modelos 3D de las prendas (ya no se usan en la tienda; quedan por si se retoman)
   brand/    logo vectorizado (SVG) · fonts/ Archivo en TTF (para el video)
   raw/      lo descargado del Instagram (no hace falta para correr la tienda)
 tools/      scripts para regenerar el 3D, el logo, la imagen OG y los USDZ
@@ -60,8 +60,8 @@ Otros comandos:
 
 - **Portada con los videos reales de la cancha** de @broxpadel de fondo, uno detrás de otro (en vertical en el celular y en horizontal en la computadora), con el logo, la frase y *Ver la colección*. Tiene botón para pausarlos. Debajo, las características de la ropa: Dry-Wick, UPF 50+, poliéster ultraliviano y envíos.
 - Las *líneas de velocidad* del logo y su inclinación son el motivo de toda la interfaz: botones, etiquetas y títulos.
-- Catálogo con filtros (categoría, talle, color, precio, colección), orden, búsqueda, historias destacadas como en Instagram y **Vista 3D**: todas las prendas girando en un único lienzo compartido.
-- Ficha de producto: prenda en 3D (arrastrar para girar, pellizcar para acercar), **Ver en tu espacio** (AR en Android e iPhone), fotos, cambio de color sin recargar, stock por talle, guía de talles, video *En acción* de los reels, *Combinala con*.
+- Catálogo con filtros (categoría, talle, color, precio, colección), orden, búsqueda e historias destacadas como en Instagram. En la computadora, al pasar el mouse por una prenda que tiene video, se reproduce.
+- Ficha de producto: si la prenda tiene video en la cancha aparece primero y después las fotos; cambio de color sin recargar, stock por talle, guía de talles y *Combinala con*.
 - Carrito que se guarda; checkout con **Mercado Pago (Checkout Pro)**, **transferencia con 5% off** y **pedido por WhatsApp** con el mensaje armado. Envío por zona o código postal, retiro, cupones, mails de confirmación y página de seguimiento del pedido.
 - Contacto, envíos y pagos, guía de talles, botón de arrepentimiento (Ley 24.240), 404 propia.
 - SEO: metadatos, Open Graph con imagen propia, JSON-LD (ClothingStore, Product con ofertas por talle, BreadcrumbList, ItemList), sitemap, robots, manifest e íconos.
@@ -70,7 +70,7 @@ Otros comandos:
 
 - Inicio con ventas (hoy, 7 y 30 días), gráfico, pedidos para atender, más vendidos, **stock bajo** y actividad.
 - Pedidos: pendiente de pago → pagado → preparando → enviado → entregado / cancelado. Mercado Pago los marca como pagados solo (webhook). Notas internas, historial, código y link de seguimiento, botón *Responder por WhatsApp*. Cancelar devuelve el stock; los pedidos de MP sin pagar se cancelan solos a las 48 h.
-- Productos con talles, stock, SKU y precio propio por talle; fotos ordenables arrastrando; reels; modelo 3D y AR; colores agrupados por familia; colecciones; guía de talles; SEO; duplicar.
+- Productos con talles, stock, SKU y precio propio por talle; fotos ordenables arrastrando; videos de la prenda; colores agrupados por familia; colecciones; guía de talles; SEO; duplicar.
 - Categorías, colecciones, historias destacadas, banners, cupones, zonas de envío, guías de talles, datos del negocio y horarios, usuarios.
 - Biblioteca de medios: subir arrastrando fotos, videos, .glb y .usdz; reordenar arrastrando; texto alternativo y etiquetas.
 - Todo cambio se ve en la tienda al instante (revalidación por tags).
@@ -84,17 +84,9 @@ Otros comandos:
 5. Para probar en local, creá en *Cuentas de prueba* un comprador y pagá con las tarjetas de prueba de la documentación de Checkout Pro (titular `APRO` = pago aprobado). Sin dominio público el webhook no llega, pero el pedido igual se actualiza cuando volvés a la tienda.
 6. Para cobrar de verdad, cambiá las credenciales por las de **producción**.
 
-## Cómo cargar un modelo 3D (.glb)
+## Videos de cada prenda
 
-**Panel → Productos → (la prenda) → Modelo 3D y AR → Cambiar → subí el .glb**. La API lo optimiza sola (meshopt + texturas WebP) y se ve en la vista previa del mismo panel. Para la AR del iPhone, subí también un `.usdz` en el campo de abajo (si no, el botón AR funciona solo en Android).
-
-Para que se vea bien:
-
-- Una sola prenda, en **metros** (una remera mide ~0,7 m de alto), centrada en el origen y con *Y* hacia arriba.
-- Hasta **3 MB** (mejor si son menos de 1 MB); texturas de 2048 px como máximo.
-- Materiales PBR estándar (color, normal y rugosidad); nada de luces ni cámaras dentro del archivo.
-
-Los 15 modelos actuales se generaron desde las fotos de frente y espalda de cada prenda (maniquí invisible, ver `PLAN.md`). Para regenerarlos se necesita Python 3.11+ con `pip install onnxruntime opencv-python trimesh scipy shapely playwright` y el modelo de segmentación `u2net_cloth_seg.onnx` en `~/models/`; después: `npm run models`.
+**Panel → Productos → (la prenda) → Videos de la prenda → Agregar video**. El primer video aparece antes que las fotos en la ficha y se reproduce al pasar el mouse en el catálogo. Si la prenda no tiene video, se ven solo las fotos.
 
 ## Videos
 

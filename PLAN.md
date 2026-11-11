@@ -13,15 +13,18 @@ BROX vende ropa de pádel para jugar: remeras de secado rápido con UPF 50+, rem
 ## Secciones
 
 1. Portada con los videos de la cancha y franja de características.
-2. Historias destacadas como en Instagram + catálogo con filtros y *Vista 3D*.
+2. Historias destacadas como en Instagram + catálogo con filtros.
 3. Colecciones (Nueva temporada, Conjuntos, Torneo BROX).
 4. *En la cancha*: reels reales con la prenda que se ve en cada uno.
 5. Banners con video y franja de información (envíos, pagos, cambios).
-6. Ficha de producto con 3D, AR, colores de la familia, talles con stock, guía de talles, *En acción* y *Combinala con*.
+6. Ficha de producto con video de la prenda y fotos, colores de la familia, talles con stock, guía de talles, *En acción* y *Combinala con*.
 7. Carrito, checkout (Mercado Pago, transferencia con descuento, WhatsApp), seguimiento del pedido.
 8. Contacto, envíos y pagos, talles, arrepentimiento, 404.
 
-## 3D de las prendas: comparación
+## 3D de las prendas (retirado)
+
+A la marca no le gustaron las prendas en 3D: se sacaron de la tienda y en su lugar se muestran los videos de cada prenda en la cancha (si tiene) o solo las fotos. Los modelos quedan en `media/3d` por si se retoman. Lo que sigue es cómo se habían hecho.
+
 
 Se probaron tres caminos sobre las mismas remeras (`media/3d/comparacion-3d.jpg`):
 
@@ -37,14 +40,13 @@ Se probaron tres caminos sobre las mismas remeras (`media/3d/comparacion-3d.jpg`
 
 - La portada muestra primero el póster del video (WebP) y carga solo el video actual y el siguiente; los demás no se descargan hasta que les toca.
 - Videos en MP4 (H.264) y WebM (VP9), 720/1080, recorte vertical para celular y horizontal para escritorio, sin audio.
-- El 3D de las prendas carga después del primer pintado, con resolución adaptativa, y el catálogo usa **un solo lienzo WebGL** para todas las prendas (drei `View`).
+- Sin WebGL: la tienda ya no carga three.js. Los videos de las prendas se descargan solo al verlos (ficha) o al pasar el mouse (catálogo).
 
 ## Calidad
 
 - `next build` y `nest build` sin errores.
 - Capturas de todas las páginas, celular y escritorio (`npm run qa`).
 - Compra de punta a punta con Mercado Pago simulado (`npm run test:e2e`): 14/14 pasos.
-- El FPS real del 3D se mide en un celular de verdad: en el servidor de pruebas no hay GPU y WebGL corre por software.
 
 ## Pendiente del lado de la marca
 

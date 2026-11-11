@@ -16,7 +16,7 @@ const archivo = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: 'Brox Padel · Indumentaria de pádel', template: '%s · Brox Padel' },
-  description: 'Remeras y shorts de pádel BROX con tecnología Dry-Wick y protección UPF 50+. Miralos en 3D y comprá online. Envíos a todo el país.',
+  description: 'Remeras y shorts de pádel BROX con tecnología Dry-Wick y protección UPF 50+. Mirá la colección y comprá online. Envíos a todo el país.',
   applicationName: 'Brox Padel',
   keywords: ['pádel', 'padel', 'indumentaria de pádel', 'remeras de pádel', 'shorts de pádel', 'Brox', 'Villa Gesell', 'Dry-Wick'],
   openGraph: { type: 'website', locale: 'es_AR', siteName: 'Brox Padel', images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Brox Padel · Indumentaria de pádel' }] },

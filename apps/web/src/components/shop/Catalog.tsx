@@ -1,14 +1,11 @@
 'use client';
 import { useMemo, useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'motion/react';
 import type { Category, Collection, Product } from '@/lib/types';
 import { money } from '@/lib/format';
 import ProductCard from './ProductCard';
-
-const CatalogCanvas = dynamic(() => import('@/three/garment/CatalogCanvas'), { ssr: false });
 
 const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const SIZE_ORDER = ['2', '4', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'Único'];
@@ -20,7 +17,6 @@ export default function Catalog({ products, categories, collections, initial, tr
 }) {
   const [f, setF] = useState<Filters>(initial);
   const [panel, setPanel] = useState(false);
-  const [view3d, setView3d] = useState(false);
   const router = useRouter();
   const path = usePathname();
 
@@ -65,7 +61,6 @@ export default function Catalog({ products, categories, collections, initial, tr
   return (
     <div>
       {heading}
-      {view3d && <CatalogCanvas />}
       <div className="sticky top-14 z-20 -mx-4 bg-chalk/95 px-4 py-3 backdrop-blur md:top-16 md:mx-0 md:px-0">
         <div className="flex items-center gap-2">
           <div className="no-scrollbar -my-1 flex flex-1 gap-2 overflow-x-auto py-1" role="group" aria-label="Categorías">
@@ -81,11 +76,6 @@ export default function Catalog({ products, categories, collections, initial, tr
         </div>
         <div className="mt-2 flex items-center justify-between gap-3 text-sm">
           <p className="t-cond text-mute" aria-live="polite">{list.length} {list.length === 1 ? 'prenda' : 'prendas'}{f.q ? ` para “${f.q}”` : ''}</p>
-          <label className="flex cursor-pointer select-none items-center gap-2">
-            <span className="t-cond">Vista 3D</span>
-            <input type="checkbox" className="peer sr-only" checked={view3d} onChange={(e) => setView3d(e.target.checked)} />
-            <span className="relative h-6 w-11 rounded-full bg-black/15 transition peer-checked:bg-turf peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition peer-checked:after:translate-x-5" />
-          </label>
         </div>
         {active.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-2">
@@ -102,7 +92,7 @@ export default function Catalog({ products, categories, collections, initial, tr
 
       {shown.length ? (
         <ul className="mt-4 grid grid-cols-2 gap-x-3 gap-y-8 md:gap-x-5 lg:grid-cols-4">
-          {shown.map((p, i) => <li key={p.id}><ProductCard p={p} show3d={view3d} priority={i < 2} transferPct={transferPct} /></li>)}
+          {shown.map((p, i) => <li key={p.id}><ProductCard p={p} priority={i < 2} transferPct={transferPct} /></li>)}
         </ul>
       ) : (
         <div className="py-20 text-center">

@@ -24,7 +24,7 @@ export default async function CatalogPage({ searchParams }: Props) {
     <div className="mx-auto max-w-7xl px-4 pb-24 pt-6 md:px-6 md:pt-10">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <h1 className="t-head text-[clamp(2.6rem,8vw,4.6rem)]">{cat?.name ?? 'Catálogo'}</h1>
-      <p className="mt-2 max-w-[56ch] text-mute">{cat?.description ?? 'Remeras y shorts de pádel con tecnología Dry-Wick y protección UPF 50+. Activá la vista 3D para girar cada prenda.'}</p>
+      <p className="mt-2 max-w-[56ch] text-mute">{cat?.description ?? 'Remeras y shorts de pádel con tecnología Dry-Wick y protección UPF 50+. Elegí tu talle y comprá online.'}</p>
       <div className="mb-6 mt-6"><Stories stories={d.stories} /></div>
       <Catalog products={d.products} categories={d.categories} collections={d.collections} initial={initial} transferPct={d.business.transferDiscountPct} />
     </div>

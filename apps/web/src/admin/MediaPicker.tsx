@@ -46,7 +46,7 @@ export function Uploader({ onDone, accept = 'image/*,video/*,.glb,.usdz', compac
       ) : (
         <>
           <p className="font-semibold">Arrastrá archivos acá</p>
-          <p className="mt-1 text-sm text-zinc-500">Fotos, videos, modelos 3D (.glb) o .usdz para AR en iPhone</p>
+          <p className="mt-1 text-sm text-zinc-500">Fotos o videos (los videos se convierten solos para la web)</p>
           <Btn type="button" tone="light" className="mt-3" onClick={() => input.current?.click()}>Elegir archivos</Btn>
         </>
       )}

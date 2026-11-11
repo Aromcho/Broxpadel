@@ -81,7 +81,7 @@ export default function Dashboard() {
         </Card>
         <Card title="Más vendidos (30 días)">
           {d.top.length ? <ol className="space-y-2">{d.top.map((t) => <li key={t.name} className="flex justify-between gap-2 text-sm"><span className="truncate">{t.name}</span><span className="shrink-0 font-semibold">{t.qty} u.</span></li>)}</ol> : <p className="text-sm text-zinc-500">Sin ventas todavía.</p>}
-          <p className="mt-4 text-sm text-zinc-500">Catálogo: {d.catalog.visible}/{d.catalog.products} visibles · {d.catalog.with3d} con 3D</p>
+          <p className="mt-4 text-sm text-zinc-500">Catálogo: {d.catalog.visible}/{d.catalog.products} visibles</p>
         </Card>
       </div>
       <Card title="Actividad" className="mt-4">
