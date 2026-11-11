@@ -5,6 +5,8 @@ import { db, schema } from '../db/db';
 import { config } from '../config';
 import { OrdersService } from '../orders/orders.service';
 
+const MP_STATUS: Record<string, string> = { approved: 'aprobado', pending: 'pendiente', in_process: 'en revisión', rejected: 'rechazado', cancelled: 'cancelado', refunded: 'devuelto', charged_back: 'contracargo' };
+
 
 @Injectable()
 export class MercadoPagoService {
@@ -99,10 +101,10 @@ export class MercadoPagoService {
       return this.orders.setStatus(o.id, 'paid', 'Mercado Pago', { message: `Pago aprobado en Mercado Pago (#${p.id}) · $${p.transaction_amount.toLocaleString('es-AR')}` });
     }
     if ((p.status === 'refunded' || p.status === 'charged_back') && o.status !== 'cancelled') {
-      return this.orders.setStatus(o.id, 'cancelled', 'Mercado Pago', { message: `Pago ${p.status} en Mercado Pago (#${p.id})` });
+      return this.orders.setStatus(o.id, 'cancelled', 'Mercado Pago', { message: `Pago ${MP_STATUS[p.status] ?? p.status} en Mercado Pago (#${p.id})` });
     }
     if (p.status === 'rejected' || p.status === 'in_process' || p.status === 'pending') {
-      await db.insert(schema.orderEvents).values({ orderId: o.id, type: 'mp', message: `Mercado Pago: ${p.status} (${p.status_detail})`, by: 'Mercado Pago' });
+      await db.insert(schema.orderEvents).values({ orderId: o.id, type: 'mp', message: `Mercado Pago: ${MP_STATUS[p.status] ?? p.status} (${p.status_detail})`, by: 'Mercado Pago' });
     }
     return this.orders.byNumber(o.number);
   }

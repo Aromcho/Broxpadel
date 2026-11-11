@@ -1,3 +1,4 @@
+import { STATUS_LABEL } from '../mail/mail.service';
 import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Put, Query, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { and, asc, desc, eq, gte, ilike, inArray, or, sql } from 'drizzle-orm';
@@ -120,7 +121,7 @@ export class AdminOrdersController {
     if (b.note) await db.insert(schema.orderEvents).values({ orderId: oid, type: 'note', message: b.note, by: user.name });
     if (b.status || b.trackingCode !== undefined || b.trackingUrl !== undefined) {
       await this.orders.setStatus(oid, b.status ?? o.status, user.name, { trackingCode: b.trackingCode, trackingUrl: b.trackingUrl });
-      if (b.status && b.status !== o.status) await this.act.log(user, 'status', 'order', oid, `Pedido ${o.number}: ${b.status}`);
+      if (b.status && b.status !== o.status) await this.act.log(user, 'status', 'order', oid, `Pedido ${o.number}: ${STATUS_LABEL[b.status]?.toLowerCase() ?? b.status}`);
     }
     return this.get(id);
   }
