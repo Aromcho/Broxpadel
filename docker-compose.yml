@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: broxpadel-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: brox
+      POSTGRES_PASSWORD: ${BROX_DB_PASSWORD:-brox}
+      POSTGRES_DB: broxpadel
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - broxpadel-pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U brox -d broxpadel"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+volumes:
+  broxpadel-pg:

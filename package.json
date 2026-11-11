@@ -1,0 +1,28 @@
+{
+  "name": "broxpadel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Brox Padel — tienda online (Next.js 16 + NestJS 11 + PostgreSQL)",
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "node scripts/dev.mjs",
+    "build": "npm run build -w apps/api && npm run build -w apps/web",
+    "start": "node scripts/start.mjs",
+    "db:up": "docker compose up -d db",
+    "db:migrate": "npm run db:migrate -w apps/api",
+    "db:seed": "npm run db:seed -w apps/api",
+    "test:e2e": "node scripts/e2e.mjs",
+    "models": "python tools/build_models.py && node tools/optimize-models.mjs && python tools/build_usdz.py",
+    "qa": "node qa/shots.mjs",
+    "perf": "node qa/perf.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.65"
+  }
+}

@@ -1,0 +1,640 @@
+{
+ "_doc": "Catálogo relevado de Tiendanube (broxpadel.mitiendanube.com) + Instagram @broxpadel, 11/11/2026. 'pick' = orden de fotos (índice 1-based de la galería de Tiendanube) y su rol. Se excluyen fotos con menores y las de la guía de talles.",
+ "categories": [
+  {
+   "slug": "remeras-secado-rapido",
+   "name": "Remeras secado rápido",
+   "description": "Tecnología Dry-Wick, protección UPF 50+ y poliéster ultraliviano."
+  },
+  {
+   "slug": "remeras-retro",
+   "name": "Remeras retro",
+   "description": "Remeras de alto rendimiento, diseñadas exclusivamente para jugadores de pádel."
+  },
+  {
+   "slug": "shorts",
+   "name": "Shorts secado rápido",
+   "description": "Short antitranspirante, de secado rápido, elastizado y ajustable."
+  },
+  {
+   "slug": "medias",
+   "name": "Medias reforzadas para pádel",
+   "description": "",
+   "hidden": true
+  }
+ ],
+ "products": [
+  {
+   "tn": "remera-brox-marron-degrade-1m9vv",
+   "slug": "remera-brox-marron-degrade",
+   "name": "Remera Brox marrón degradé",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Marrón degradé",
+   "garment": "tee",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     3,
+     "back"
+    ],
+    [
+     2,
+     "gallery"
+    ],
+    [
+     4,
+     "lifestyle"
+    ]
+   ],
+   "featured": true,
+   "igPick": [
+    [
+     "DaLzJVAGC-3",
+     "01",
+     "gallery"
+    ],
+    [
+     "DaLzJVAGC-3",
+     "02",
+     "gallery"
+    ]
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-blanca-c78nf",
+   "slug": "remera-brox-blanca",
+   "name": "Remera Brox blanca con trama",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Blanca",
+   "garment": "tee",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     4,
+     "back"
+    ],
+    [
+     3,
+     "gallery"
+    ],
+    [
+     5,
+     "gallery"
+    ],
+    [
+     6,
+     "lifestyle"
+    ]
+   ],
+   "featured": true,
+   "igPick": [
+    [
+     "DaBBqZHDk0y",
+     "02",
+     "gallery"
+    ]
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-violeta-1w8hw",
+   "slug": "remera-brox-violeta",
+   "name": "Remera Brox violeta",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Violeta",
+   "garment": "tee",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     2,
+     "back"
+    ],
+    [
+     4,
+     "gallery"
+    ],
+    [
+     3,
+     "lifestyle"
+    ],
+    [
+     5,
+     "gallery"
+    ]
+   ],
+   "reels": [
+    "violeta"
+   ],
+   "featured": true,
+   "igPick": [
+    [
+     "DY7mQuFFTmK",
+     "02",
+     "back-alt"
+    ],
+    [
+     "DY7mQuFFTmK",
+     "03",
+     "lifestyle"
+    ]
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-negro-17873",
+   "slug": "remera-brox-negra",
+   "name": "Remera Brox negra",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Negra",
+   "garment": "tee",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     3,
+     "back"
+    ],
+    [
+     2,
+     "detail"
+    ],
+    [
+     5,
+     "gallery"
+    ],
+    [
+     4,
+     "lifestyle"
+    ]
+   ],
+   "igPick": []
+  },
+  {
+   "tn": "remera-brox-mod-azul-degrade-125iw",
+   "slug": "remera-brox-azul-degrade",
+   "name": "Remera Brox azul degradé",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Azul degradé",
+   "garment": "tee",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     3,
+     "back"
+    ],
+    [
+     4,
+     "gallery"
+    ],
+    [
+     2,
+     "lifestyle"
+    ]
+   ],
+   "isNew": true,
+   "igPick": [
+    [
+     "DZXfgg2FXK8",
+     "02",
+     "gallery"
+    ]
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-celeste-2025",
+   "slug": "remera-brox-celeste",
+   "name": "Remera Brox celeste",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Celeste",
+   "garment": "tee",
+   "price": 35000,
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     5,
+     "back"
+    ],
+    [
+     2,
+     "detail"
+    ],
+    [
+     4,
+     "detail"
+    ],
+    [
+     3,
+     "gallery"
+    ],
+    [
+     7,
+     "gallery"
+    ]
+   ],
+   "reels": [
+    "celeste"
+   ],
+   "igPick": []
+  },
+  {
+   "tn": "remera-brox-m90",
+   "slug": "remera-brox-rosa-polvo",
+   "name": "Remera Brox rosa polvo",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Rosa polvo",
+   "garment": "tee",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     3,
+     "back"
+    ],
+    [
+     2,
+     "gallery"
+    ],
+    [
+     4,
+     "detail"
+    ],
+    [
+     5,
+     "lifestyle"
+    ]
+   ],
+   "reels": [
+    "rosa"
+   ],
+   "isNew": true,
+   "igPick": []
+  },
+  {
+   "tn": "remera-brox-mod-f314",
+   "slug": "remera-brox-gris-oscuro",
+   "name": "Remera Brox gris oscuro",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Gris oscuro",
+   "garment": "tee",
+   "price": 35000,
+   "pick": [
+    [
+     2,
+     "front"
+    ],
+    [
+     5,
+     "back"
+    ],
+    [
+     3,
+     "detail"
+    ],
+    [
+     1,
+     "lifestyle"
+    ]
+   ],
+   "reels": [
+    "gris"
+   ],
+   "igPick": []
+  },
+  {
+   "tn": "remera-brox-mod-retro-gri",
+   "slug": "remera-brox-retro-gris",
+   "name": "Remera Brox retro gris",
+   "category": "remeras-retro",
+   "family": "remera-retro",
+   "color": "Gris",
+   "garment": "tee",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     5,
+     "back"
+    ],
+    [
+     2,
+     "gallery"
+    ],
+    [
+     3,
+     "detail"
+    ],
+    [
+     4,
+     "detail"
+    ]
+   ],
+   "igPick": []
+  },
+  {
+   "tn": "remera-brox-mod-retro-rojo",
+   "slug": "remera-brox-retro-roja",
+   "name": "Remera Brox retro roja",
+   "category": "remeras-retro",
+   "family": "remera-retro",
+   "color": "Roja",
+   "garment": "tee",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     2,
+     "back"
+    ],
+    [
+     4,
+     "gallery"
+    ],
+    [
+     3,
+     "detail"
+    ],
+    [
+     5,
+     "gallery"
+    ]
+   ],
+   "igPick": []
+  },
+  {
+   "tn": "short-brox-blanco-1nmch",
+   "slug": "short-brox-blanco",
+   "name": "Short Brox blanco",
+   "category": "shorts",
+   "family": "short",
+   "color": "Blanco",
+   "garment": "shorts",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     4,
+     "gallery"
+    ],
+    [
+     2,
+     "lifestyle"
+    ],
+    [
+     3,
+     "lifestyle"
+    ]
+   ],
+   "igPick": []
+  },
+  {
+   "tn": "short-brox-gris-degrade-blanco-288ic",
+   "slug": "short-brox-gris-degrade",
+   "name": "Short Brox gris degradé blanco",
+   "category": "shorts",
+   "family": "short",
+   "color": "Gris degradé",
+   "garment": "shorts",
+   "pick": [
+    [
+     1,
+     "front"
+    ]
+   ],
+   "reels": [
+    "short"
+   ],
+   "isNew": true,
+   "igPick": []
+  },
+  {
+   "tn": "short-brox-celeste-degrade-1xe8n",
+   "slug": "short-brox-celeste-degrade",
+   "name": "Short Brox celeste degradé",
+   "category": "shorts",
+   "family": "short",
+   "color": "Celeste degradé",
+   "garment": "shorts",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     2,
+     "detail"
+    ],
+    [
+     4,
+     "detail"
+    ],
+    [
+     3,
+     "lifestyle"
+    ]
+   ],
+   "featured": true,
+   "igPick": [
+    [
+     "DZpuBFzFWvz",
+     "02",
+     "lifestyle"
+    ]
+   ]
+  },
+  {
+   "tn": "short-brox-gris-tuquesa-degrade-1qpv1",
+   "slug": "short-brox-turquesa-degrade",
+   "name": "Short Brox gris turquesa degradé",
+   "category": "shorts",
+   "family": "short",
+   "color": "Turquesa degradé",
+   "garment": "shorts",
+   "pick": [
+    [
+     2,
+     "front"
+    ],
+    [
+     1,
+     "gallery"
+    ],
+    [
+     3,
+     "lifestyle"
+    ]
+   ],
+   "igPick": []
+  },
+  {
+   "tn": "short-brox-gris-oscuro-w957n",
+   "slug": "short-brox-gris-oscuro",
+   "name": "Short Brox gris oscuro",
+   "category": "shorts",
+   "family": "short",
+   "color": "Gris oscuro",
+   "garment": "shorts",
+   "pick": [
+    [
+     1,
+     "front"
+    ],
+    [
+     2,
+     "detail"
+    ],
+    [
+     3,
+     "lifestyle"
+    ]
+   ],
+   "igPick": []
+  }
+ ],
+ "reels": [
+  {
+   "key": "violeta",
+   "src": "posts/2026-08-06_Dbt3oKWsgbb/01.mp4",
+   "ig": "https://www.instagram.com/reel/Dbt3oKWsgbb/",
+   "start": 0,
+   "end": 4.9,
+   "title": "Remera violeta en la cancha",
+   "tags": [
+    "court",
+    "reel"
+   ]
+  },
+  {
+   "key": "celeste",
+   "src": "posts/2026-08-31_DctNVDGMzOC/01.mp4",
+   "ig": "https://www.instagram.com/reel/DctNVDGMzOC/",
+   "start": 0,
+   "end": 4.95,
+   "title": "Celeste bajo el sol",
+   "tags": [
+    "court",
+    "reel"
+   ]
+  },
+  {
+   "key": "rosa",
+   "src": "posts/2026-09-17_DdZN4MXMnil/01.mp4",
+   "ig": "https://www.instagram.com/reel/DdZN4MXMnil/",
+   "start": 13.5,
+   "end": 19.9,
+   "title": "Rosa polvo, de cerca",
+   "tags": [
+    "court",
+    "reel"
+   ]
+  },
+  {
+   "key": "gris",
+   "src": "posts/2026-09-17_DdZN4MXMnil/01.mp4",
+   "ig": "https://www.instagram.com/reel/DdZN4MXMnil/",
+   "start": 6.0,
+   "end": 7.95,
+   "title": "Gris oscuro al atardecer",
+   "tags": [
+    "reel"
+   ]
+  },
+  {
+   "key": "short",
+   "src": "posts/2026-09-17_DdZN4MXMnil/01.mp4",
+   "ig": "https://www.instagram.com/reel/DdZN4MXMnil/",
+   "start": 9.0,
+   "end": 10.95,
+   "title": "Short gris degradé en movimiento",
+   "tags": [
+    "reel"
+   ]
+  },
+  {
+   "key": "noche",
+   "src": "posts/2026-09-17_DdZN4MXMnil/01.mp4",
+   "ig": "https://www.instagram.com/reel/DdZN4MXMnil/",
+   "start": 20.0,
+   "end": 24.9,
+   "title": "Cancha de noche",
+   "tags": [
+    "bg",
+    "reel"
+   ]
+  },
+  {
+   "key": "torneo-fondo",
+   "src": "posts/2026-08-21_DcUQZZvMlmi/01.mp4",
+   "ig": "https://www.instagram.com/reel/DcUQZZvMlmi/",
+   "start": 3.0,
+   "end": 4.95,
+   "title": "Torneo BROX II en Maxxim",
+   "tags": [
+    "story"
+   ]
+  },
+  {
+   "key": "torneo-maniqui",
+   "src": "posts/2026-08-21_DcUQZZvMlmi/01.mp4",
+   "ig": "https://www.instagram.com/reel/DcUQZZvMlmi/",
+   "start": 6.0,
+   "end": 7.95,
+   "title": "La violeta en el stand del torneo",
+   "tags": [
+    "story"
+   ]
+  },
+  {
+   "key": "torneo-premios",
+   "src": "posts/2026-08-21_DcUQZZvMlmi/01.mp4",
+   "ig": "https://www.instagram.com/reel/DcUQZZvMlmi/",
+   "start": 13.0,
+   "end": 14.95,
+   "title": "Premios del torneo",
+   "tags": [
+    "story"
+   ]
+  },
+  {
+   "key": "aereo",
+   "src": "posts/2026-08-31_DctNVDGMzOC/01.mp4",
+   "ig": "https://www.instagram.com/reel/DctNVDGMzOC/",
+   "start": 0,
+   "end": 2.4,
+   "title": "Cancha desde arriba",
+   "tags": [
+    "bg"
+   ]
+  }
+ ]
+}

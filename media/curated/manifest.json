@@ -1,0 +1,1293 @@
+{
+ "products": [
+  {
+   "tn": "remera-brox-marron-degrade-1m9vv",
+   "slug": "remera-brox-marron-degrade",
+   "name": "Remera Brox marrón degradé",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Marrón degradé",
+   "garment": "tee",
+   "featured": true,
+   "price": 38000,
+   "description": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudor. Añadimos un sistema  UPF 50+ para esos partidos interminables a plena luz del dia. Y lo hicimos con un poliéster tan liviano y respirable que olvidarás que lo llevas puesto. \nIndumentaria técnica profesional.",
+   "seo": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudo...",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/remera-brox-marron-degrade-1m9vv/",
+   "colorHex": "#bab6bb",
+   "colorHex2": "#a8a2a7",
+   "variants": [
+    {
+     "size": "XS",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "S",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "M",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "L",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XXL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "2",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "4",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XXXL",
+     "price": 38000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/remera-brox-marron-degrade/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-marron-degrade/02-back.jpg",
+     "role": "back",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-marron-degrade/03-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-marron-degrade/04-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-marron-degrade/05-gallery.jpg",
+     "role": "gallery",
+     "origin": "Instagram DaLzJVAGC-3 · foto 1",
+     "cleaned": false,
+     "w": 1440,
+     "h": 1920
+    },
+    {
+     "file": "products/remera-brox-marron-degrade/06-gallery.jpg",
+     "role": "gallery",
+     "origin": "Instagram DaLzJVAGC-3 · foto 2",
+     "cleaned": false,
+     "w": 1440,
+     "h": 1920
+    }
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-blanca-c78nf",
+   "slug": "remera-brox-blanca",
+   "name": "Remera Brox blanca con trama",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Blanca",
+   "garment": "tee",
+   "featured": true,
+   "price": 38000,
+   "description": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudor. Añadimos un sistema  UPF 50+ para esos partidos interminables a plena luz del dia. Y lo hicimos con un poliéster tan liviano y respirable que olvidarás que lo llevas puesto. \nIndumentaria técnica profesional.",
+   "seo": "Remera Brox mod blanca, diseñada para jugadores de Padel que buscan comodidad y rendimiento. ¡Mejorá tu juego hoy!",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/remera-brox-mod-blanca-c78nf/",
+   "colorHex": "#afb2b7",
+   "colorHex2": "#a0a1a2",
+   "variants": [
+    {
+     "size": "XS",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "S",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "M",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "L",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XXL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XXXL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "4",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "2",
+     "price": 38000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/remera-brox-blanca/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-blanca/02-back.jpg",
+     "role": "back",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": false,
+     "w": 762,
+     "h": 1152
+    },
+    {
+     "file": "products/remera-brox-blanca/03-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": false,
+     "w": 717,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-blanca/04-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 5",
+     "cleaned": false,
+     "w": 664,
+     "h": 1225
+    },
+    {
+     "file": "products/remera-brox-blanca/05-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 6",
+     "cleaned": true,
+     "w": 860,
+     "h": 797
+    },
+    {
+     "file": "products/remera-brox-blanca/06-gallery.jpg",
+     "role": "gallery",
+     "origin": "Instagram DaBBqZHDk0y · foto 2",
+     "cleaned": false,
+     "w": 1440,
+     "h": 1920
+    }
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-violeta-1w8hw",
+   "slug": "remera-brox-violeta",
+   "name": "Remera Brox violeta",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Violeta",
+   "garment": "tee",
+   "reels": [
+    "violeta"
+   ],
+   "featured": true,
+   "price": 38000,
+   "description": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudor. Añadimos un sistema  UPF 50+ para esos partidos interminables a plena luz del dia. Y lo hicimos con un poliéster tan liviano y respirable que olvidarás que lo llevas puesto. \nIndumentaria técnica profesional.",
+   "seo": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudo...",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/remera-brox-mod-violeta-1w8hw/",
+   "colorHex": "#893f6d",
+   "colorHex2": "#833863",
+   "variants": [
+    {
+     "size": "XS",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "S",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "M",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "L",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XXL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XXXL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "4",
+     "price": 38000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/remera-brox-violeta/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-violeta/02-back.jpg",
+     "role": "back",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-violeta/03-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-violeta/04-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-violeta/05-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 5",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-violeta/06-back-alt.jpg",
+     "role": "back-alt",
+     "origin": "Instagram DY7mQuFFTmK · foto 2",
+     "cleaned": false,
+     "w": 1440,
+     "h": 1920
+    },
+    {
+     "file": "products/remera-brox-violeta/07-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Instagram DY7mQuFFTmK · foto 3",
+     "cleaned": false,
+     "w": 1440,
+     "h": 1920
+    }
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-negro-17873",
+   "slug": "remera-brox-negra",
+   "name": "Remera Brox negra",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Negra",
+   "garment": "tee",
+   "price": 38000,
+   "description": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudor. Añadimos un sistema  UPF 50+ para esos partidos interminables a plena luz del dia. Y lo hicimos con un poliéster tan liviano y respirable que olvidarás que lo llevas puesto. \nIndumentaria técnica profesional.",
+   "seo": "Remera Brox negra, ideal para jugadores de padel que buscan rendimiento y comodidad. ¡Compra ya y mejora tu juego!",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/remera-brox-mod-negro-17873/",
+   "colorHex": "#36373f",
+   "colorHex2": "#2d2d35",
+   "variants": [
+    {
+     "size": "XS",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "S",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "M",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "L",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XXL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XXXL",
+     "price": 38000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/remera-brox-negra/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-negra/02-back.jpg",
+     "role": "back",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/remera-brox-negra/03-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-negra/04-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 5",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-negra/05-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    }
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-azul-degrade-125iw",
+   "slug": "remera-brox-azul-degrade",
+   "name": "Remera Brox azul degradé",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Azul degradé",
+   "garment": "tee",
+   "isNew": true,
+   "price": 38000,
+   "description": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudor. Añadimos un sistema  UPF 50+ para esos partidos interminables a plena luz del dia. Y lo hicimos con un poliéster tan liviano y respirable que olvidarás que lo llevas puesto. \nIndumentaria técnica profesional.",
+   "seo": "Remera Brox azul degrade, diseñada para el máximo rendimiento en Padel. Comodidad y estilo para jugadores exigentes. ¡Compra ahora!",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/remera-brox-mod-azul-degrade-125iw/",
+   "colorHex": "#3e527f",
+   "colorHex2": "#3c4f76",
+   "variants": [
+    {
+     "size": "XS",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "S",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "M",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "L",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XXL",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "XXXL",
+     "price": 38000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/remera-brox-azul-degrade/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": false,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-azul-degrade/02-back.jpg",
+     "role": "back",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/remera-brox-azul-degrade/03-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": false,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-azul-degrade/04-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": false,
+     "w": 645,
+     "h": 872
+    },
+    {
+     "file": "products/remera-brox-azul-degrade/05-gallery.jpg",
+     "role": "gallery",
+     "origin": "Instagram DZXfgg2FXK8 · foto 2",
+     "cleaned": false,
+     "w": 1440,
+     "h": 1920
+    }
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-celeste-2025",
+   "slug": "remera-brox-celeste",
+   "name": "Remera Brox celeste",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Celeste",
+   "garment": "tee",
+   "price": 35000,
+   "reels": [
+    "celeste"
+   ],
+   "description": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudor. Añadimos un sistema  UPF 50+ para esos partidos interminables a plena luz del dia. Y lo hicimos con un poliéster tan liviano y respirable que olvidarás que lo llevas puesto. \nIndumentaria técnica profesional.",
+   "seo": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudo...",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/remera-brox-mod-celeste-2025/",
+   "colorHex": "#276886",
+   "colorHex2": "#203544",
+   "variants": [
+    {
+     "size": "S",
+     "price": 35000,
+     "stock": null
+    },
+    {
+     "size": "M",
+     "price": 35000,
+     "stock": null
+    },
+    {
+     "size": "L",
+     "price": 35000,
+     "stock": null
+    },
+    {
+     "size": "XL",
+     "price": 35000,
+     "stock": null
+    },
+    {
+     "size": "XXL",
+     "price": 35000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/remera-brox-celeste/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/remera-brox-celeste/02-back.jpg",
+     "role": "back",
+     "origin": "Tiendanube · foto 5",
+     "cleaned": false,
+     "w": 959,
+     "h": 1280
+    },
+    {
+     "file": "products/remera-brox-celeste/03-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": false,
+     "w": 1024,
+     "h": 1365
+    },
+    {
+     "file": "products/remera-brox-celeste/04-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": false,
+     "w": 1024,
+     "h": 1365
+    },
+    {
+     "file": "products/remera-brox-celeste/05-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-celeste/06-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 7",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    }
+   ]
+  },
+  {
+   "tn": "remera-brox-m90",
+   "slug": "remera-brox-rosa-polvo",
+   "name": "Remera Brox rosa polvo",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Rosa polvo",
+   "garment": "tee",
+   "reels": [
+    "rosa"
+   ],
+   "isNew": true,
+   "price": 38000,
+   "description": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudor. Añadimos un sistema  UPF 50+ para esos partidos interminables a plena luz del dia. Y lo hicimos con un poliéster tan liviano y respirable que olvidarás que lo llevas puesto. \nIndumentaria técnica profesional.",
+   "seo": "Remera Brox M90, ideal para padel, con UPF50+ y tecnología DRY-WICK que te mantiene seco y protegido. Compra ya y disfruta comodidad y estilo.",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/remera-brox-m90/",
+   "colorHex": "#c7b3bd",
+   "colorHex2": "#b7a1aa",
+   "variants": [
+    {
+     "size": "M",
+     "price": 38000,
+     "stock": null
+    },
+    {
+     "size": "L",
+     "price": 38000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/remera-brox-rosa-polvo/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-rosa-polvo/02-back.jpg",
+     "role": "back",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": false,
+     "w": 748,
+     "h": 999
+    },
+    {
+     "file": "products/remera-brox-rosa-polvo/03-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": false,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-rosa-polvo/04-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": false,
+     "w": 928,
+     "h": 1120
+    },
+    {
+     "file": "products/remera-brox-rosa-polvo/05-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 5",
+     "cleaned": false,
+     "w": 864,
+     "h": 1184
+    }
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-f314",
+   "slug": "remera-brox-gris-oscuro",
+   "name": "Remera Brox gris oscuro",
+   "category": "remeras-secado-rapido",
+   "family": "remera-secado-rapido",
+   "color": "Gris oscuro",
+   "garment": "tee",
+   "price": 35000,
+   "reels": [
+    "gris"
+   ],
+   "description": "Utilizamos tecnología Dry-Wick para asegurar un secado ultrarrápido, porque sabemos que cuando estás definiendo un partido, no puedes preocuparte por el sudor. Añadimos un sistema  UPF 50+ para esos partidos interminables a plena luz del dia. Y lo hicimos con un poliéster tan liviano y respirable que olvidarás que lo llevas puesto. \nIndumentaria técnica profesional.",
+   "seo": "Remera Brox F314 con UPF50+ y tecnología DRY-WICK para mantenerte seco y protegido. Calidad, estilo y comodidad en alto rendimiento. ¡Compra ahora!",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/remera-brox-mod-f314/",
+   "colorHex": "#5b5959",
+   "colorHex2": "#474549",
+   "variants": [
+    {
+     "size": "Único",
+     "price": 35000,
+     "stock": 20
+    }
+   ],
+   "images": [
+    {
+     "file": "products/remera-brox-gris-oscuro/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-gris-oscuro/02-back.jpg",
+     "role": "back",
+     "origin": "Tiendanube · foto 5",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/remera-brox-gris-oscuro/03-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": false,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-gris-oscuro/04-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    }
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-retro-gri",
+   "slug": "remera-brox-retro-gris",
+   "name": "Remera Brox retro gris",
+   "category": "remeras-retro",
+   "family": "remera-retro",
+   "color": "Gris",
+   "garment": "tee",
+   "price": 29000,
+   "description": "Remeras de alto rendimiento, diseñadas exclusivamente para jugadores de Padel.",
+   "seo": "Remera Brox mod retro gri diseñada para jugadores de padel, ofrece confort y rendimiento superior. ¡Mejorá tu juego con estilo!",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/remera-brox-mod-retro-gri/",
+   "colorHex": "#30242d",
+   "colorHex2": "#251922",
+   "variants": [
+    {
+     "size": "XS",
+     "price": 29000,
+     "stock": null
+    },
+    {
+     "size": "L",
+     "price": 29000,
+     "stock": null
+    },
+    {
+     "size": "M",
+     "price": 29000,
+     "stock": null
+    },
+    {
+     "size": "XL",
+     "price": 29000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/remera-brox-retro-gris/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/remera-brox-retro-gris/02-back.jpg",
+     "role": "back",
+     "origin": "Tiendanube · foto 5",
+     "cleaned": false,
+     "w": 1024,
+     "h": 1365
+    },
+    {
+     "file": "products/remera-brox-retro-gris/03-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": false,
+     "w": 1024,
+     "h": 1365
+    },
+    {
+     "file": "products/remera-brox-retro-gris/04-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": true,
+     "w": 1024,
+     "h": 1365
+    },
+    {
+     "file": "products/remera-brox-retro-gris/05-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": false,
+     "w": 1024,
+     "h": 1365
+    }
+   ]
+  },
+  {
+   "tn": "remera-brox-mod-retro-rojo",
+   "slug": "remera-brox-retro-roja",
+   "name": "Remera Brox retro roja",
+   "category": "remeras-retro",
+   "family": "remera-retro",
+   "color": "Roja",
+   "garment": "tee",
+   "price": 29000,
+   "description": "Remeras de alto rendimiento, diseñadas exclusivamente para jugadores de Padel.",
+   "seo": "Remeras de alto rendimiento, diseñadas exclusivamente para jugadores de Padel.  ",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/remera-brox-mod-retro-rojo/",
+   "colorHex": "#4c3a47",
+   "colorHex2": "#382a36",
+   "variants": [
+    {
+     "size": "XS",
+     "price": 29000,
+     "stock": null
+    },
+    {
+     "size": "XXL",
+     "price": 29000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/remera-brox-retro-roja/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/remera-brox-retro-roja/02-back.jpg",
+     "role": "back",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": false,
+     "w": 1024,
+     "h": 1365
+    },
+    {
+     "file": "products/remera-brox-retro-roja/03-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": false,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/remera-brox-retro-roja/04-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": false,
+     "w": 1024,
+     "h": 1365
+    },
+    {
+     "file": "products/remera-brox-retro-roja/05-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 5",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    }
+   ]
+  },
+  {
+   "tn": "short-brox-blanco-1nmch",
+   "slug": "short-brox-blanco",
+   "name": "Short Brox blanco",
+   "category": "shorts",
+   "family": "short",
+   "color": "Blanco",
+   "garment": "shorts",
+   "price": 35000,
+   "description": "short anti transpirante secado rapido elastisado ajustable",
+   "seo": "Short Brox blanco con tejido antitranspirante, elástico y ajustable. Ideal para máxima comodidad y rendimiento. ¡Compra ahora!",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/short-brox-blanco-1nmch/",
+   "colorHex": "#9c9d9a",
+   "colorHex2": "#8b8a87",
+   "variants": [
+    {
+     "size": "Único",
+     "price": 35000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/short-brox-blanco/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": false,
+     "w": 765,
+     "h": 531
+    },
+    {
+     "file": "products/short-brox-blanco/02-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": false,
+     "w": 848,
+     "h": 555
+    },
+    {
+     "file": "products/short-brox-blanco/03-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    },
+    {
+     "file": "products/short-brox-blanco/04-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    }
+   ]
+  },
+  {
+   "tn": "short-brox-gris-degrade-blanco-288ic",
+   "slug": "short-brox-gris-degrade",
+   "name": "Short Brox gris degradé blanco",
+   "category": "shorts",
+   "family": "short",
+   "color": "Gris degradé",
+   "garment": "shorts",
+   "reels": [
+    "short"
+   ],
+   "isNew": true,
+   "price": 35000,
+   "description": "short anti transpirante secado rapido elastisado ajustable",
+   "seo": "Short Brox gris degradé blanco, antitranspirante, secado rápido y ajustable para máxima comodidad. ¡Compra ahora y mejora tu rendimiento!",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/short-brox-gris-degrade-blanco-288ic/",
+   "colorHex": "#a29ca1",
+   "colorHex2": "#c0b9b8",
+   "variants": [
+    {
+     "size": "Único",
+     "price": 35000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/short-brox-gris-degrade/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": true,
+     "w": 864,
+     "h": 1184
+    }
+   ]
+  },
+  {
+   "tn": "short-brox-celeste-degrade-1xe8n",
+   "slug": "short-brox-celeste-degrade",
+   "name": "Short Brox celeste degradé",
+   "category": "shorts",
+   "family": "short",
+   "color": "Celeste degradé",
+   "garment": "shorts",
+   "featured": true,
+   "price": 35000,
+   "description": "short anti trasnpirtante secado rapido, ajustable",
+   "seo": "Short Brox celeste degradé con secado rápido y ajuste cómodo. Ideal para actividades deportivas. ¡Compra ahora y mejora tu rendimiento!",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/short-brox-celeste-degrade-1xe8n/",
+   "colorHex": "#4c597e",
+   "colorHex2": "#3f4a68",
+   "variants": [
+    {
+     "size": "Único",
+     "price": 35000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/short-brox-celeste-degrade/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/short-brox-celeste-degrade/02-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/short-brox-celeste-degrade/03-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 4",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/short-brox-celeste-degrade/04-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": false,
+     "w": 645,
+     "h": 872
+    },
+    {
+     "file": "products/short-brox-celeste-degrade/05-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Instagram DZpuBFzFWvz · foto 2",
+     "cleaned": false,
+     "w": 1440,
+     "h": 1920
+    }
+   ]
+  },
+  {
+   "tn": "short-brox-gris-tuquesa-degrade-1qpv1",
+   "slug": "short-brox-turquesa-degrade",
+   "name": "Short Brox gris turquesa degradé",
+   "category": "shorts",
+   "family": "short",
+   "color": "Turquesa degradé",
+   "garment": "shorts",
+   "price": 35000,
+   "description": "short anti transpirante secado rapido",
+   "seo": "Short Brox gris turquesa con secado rápido y anti transpirante. Ideal para máxima comodidad y rendimiento. ¡Compra ahora y mejora tu juego!",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/short-brox-gris-tuquesa-degrade-1qpv1/",
+   "colorHex": "#344e62",
+   "colorHex2": "#27738b",
+   "variants": [
+    {
+     "size": "Único",
+     "price": 35000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/short-brox-turquesa-degrade/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/short-brox-turquesa-degrade/02-gallery.jpg",
+     "role": "gallery",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": false,
+     "w": 860,
+     "h": 430
+    },
+    {
+     "file": "products/short-brox-turquesa-degrade/03-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": false,
+     "w": 864,
+     "h": 1184
+    }
+   ]
+  },
+  {
+   "tn": "short-brox-gris-oscuro-w957n",
+   "slug": "short-brox-gris-oscuro",
+   "name": "Short Brox gris oscuro",
+   "category": "shorts",
+   "family": "short",
+   "color": "Gris oscuro",
+   "garment": "shorts",
+   "price": 35000,
+   "description": "short anti trasnpirante secado rapido",
+   "seo": "short anti trasnpirante secado rapido ",
+   "sourceUrl": "https://broxpadel.mitiendanube.com/productos/short-brox-gris-oscuro-w957n/",
+   "colorHex": "#5f5d62",
+   "colorHex2": "#555354",
+   "variants": [
+    {
+     "size": "Único",
+     "price": 35000,
+     "stock": null
+    }
+   ],
+   "images": [
+    {
+     "file": "products/short-brox-gris-oscuro/01-front.jpg",
+     "role": "front",
+     "origin": "Tiendanube · foto 1",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/short-brox-gris-oscuro/02-detail.jpg",
+     "role": "detail",
+     "origin": "Tiendanube · foto 2",
+     "cleaned": false,
+     "w": 960,
+     "h": 1280
+    },
+    {
+     "file": "products/short-brox-gris-oscuro/03-lifestyle.jpg",
+     "role": "lifestyle",
+     "origin": "Tiendanube · foto 3",
+     "cleaned": false,
+     "w": 864,
+     "h": 1184
+    }
+   ]
+  }
+ ],
+ "reels": [
+  {
+   "key": "violeta",
+   "src": "posts/2026-08-06_Dbt3oKWsgbb/01.mp4",
+   "ig": "https://www.instagram.com/reel/Dbt3oKWsgbb/",
+   "start": 0,
+   "end": 4.9,
+   "title": "Remera violeta en la cancha",
+   "tags": [
+    "court",
+    "reel"
+   ],
+   "file": "videos/violeta.mp4"
+  },
+  {
+   "key": "celeste",
+   "src": "posts/2026-08-31_DctNVDGMzOC/01.mp4",
+   "ig": "https://www.instagram.com/reel/DctNVDGMzOC/",
+   "start": 0,
+   "end": 4.95,
+   "title": "Celeste bajo el sol",
+   "tags": [
+    "court",
+    "reel"
+   ],
+   "file": "videos/celeste.mp4"
+  },
+  {
+   "key": "rosa",
+   "src": "posts/2026-09-17_DdZN4MXMnil/01.mp4",
+   "ig": "https://www.instagram.com/reel/DdZN4MXMnil/",
+   "start": 13.5,
+   "end": 19.9,
+   "title": "Rosa polvo, de cerca",
+   "tags": [
+    "court",
+    "reel"
+   ],
+   "file": "videos/rosa.mp4"
+  },
+  {
+   "key": "gris",
+   "src": "posts/2026-09-17_DdZN4MXMnil/01.mp4",
+   "ig": "https://www.instagram.com/reel/DdZN4MXMnil/",
+   "start": 6.0,
+   "end": 7.95,
+   "title": "Gris oscuro al atardecer",
+   "tags": [
+    "reel"
+   ],
+   "file": "videos/gris.mp4"
+  },
+  {
+   "key": "short",
+   "src": "posts/2026-09-17_DdZN4MXMnil/01.mp4",
+   "ig": "https://www.instagram.com/reel/DdZN4MXMnil/",
+   "start": 9.0,
+   "end": 10.95,
+   "title": "Short gris degradé en movimiento",
+   "tags": [
+    "reel"
+   ],
+   "file": "videos/short.mp4"
+  },
+  {
+   "key": "noche",
+   "src": "posts/2026-09-17_DdZN4MXMnil/01.mp4",
+   "ig": "https://www.instagram.com/reel/DdZN4MXMnil/",
+   "start": 20.0,
+   "end": 24.9,
+   "title": "Cancha de noche",
+   "tags": [
+    "bg",
+    "reel"
+   ],
+   "file": "videos/noche.mp4"
+  },
+  {
+   "key": "torneo-fondo",
+   "src": "posts/2026-08-21_DcUQZZvMlmi/01.mp4",
+   "ig": "https://www.instagram.com/reel/DcUQZZvMlmi/",
+   "start": 3.0,
+   "end": 4.95,
+   "title": "Torneo BROX II en Maxxim",
+   "tags": [
+    "story"
+   ],
+   "file": "videos/torneo-fondo.mp4"
+  },
+  {
+   "key": "torneo-maniqui",
+   "src": "posts/2026-08-21_DcUQZZvMlmi/01.mp4",
+   "ig": "https://www.instagram.com/reel/DcUQZZvMlmi/",
+   "start": 6.0,
+   "end": 7.95,
+   "title": "La violeta en el stand del torneo",
+   "tags": [
+    "story"
+   ],
+   "file": "videos/torneo-maniqui.mp4"
+  },
+  {
+   "key": "torneo-premios",
+   "src": "posts/2026-08-21_DcUQZZvMlmi/01.mp4",
+   "ig": "https://www.instagram.com/reel/DcUQZZvMlmi/",
+   "start": 13.0,
+   "end": 14.95,
+   "title": "Premios del torneo",
+   "tags": [
+    "story"
+   ],
+   "file": "videos/torneo-premios.mp4"
+  },
+  {
+   "key": "aereo",
+   "src": "posts/2026-08-31_DctNVDGMzOC/01.mp4",
+   "ig": "https://www.instagram.com/reel/DctNVDGMzOC/",
+   "start": 0,
+   "end": 2.4,
+   "title": "Cancha desde arriba",
+   "tags": [
+    "bg"
+   ],
+   "file": "videos/aereo.mp4"
+  }
+ ],
+ "brand": {}
+}

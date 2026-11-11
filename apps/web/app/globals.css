@@ -1,0 +1,240 @@
+@import 'tailwindcss';
+
+/*
+ * Brox Padel — tokens
+ * Rojo cancha (césped del logo), tiza (líneas), noche (cancha iluminada), vidrio templado, pelota.
+ * Recurso gráfico: la inclinación de 12° del logotipo (botones, etiquetas, cortes).
+ */
+@theme {
+  --color-brand: #fb2324; /* rojo exacto del logo */
+  --color-turf: #d9161d; /* rojo para botones con texto blanco (contraste AA) */
+  --color-turf-deep: #a30f15;
+  --color-chalk: #f3f2ee;
+  --color-chalk-2: #e8e6e0;
+  --color-night: #0a0f1a;
+  --color-night-2: #121a2a;
+  --color-glass: #9ccfd0;
+  --color-ball: #d9ee3b;
+  --color-ink: #12151c;
+  --color-mute: #626774;
+
+  --font-sans: var(--font-archivo), 'Arial Narrow', Arial, sans-serif;
+
+  --ease-shot: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --radius-tile: 18px;
+}
+
+@layer base {
+  :root {
+    --slant: -16deg; /* inclinación del logotipo BROX */
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: auto;
+  }
+  body {
+    background: var(--color-chalk);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-variation-settings: 'wdth' 100;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .on-night :focus-visible,
+  .on-night:focus-visible {
+    outline-color: var(--color-ball);
+  }
+  ::selection {
+    background: var(--color-turf);
+    color: #fff;
+  }
+  img,
+  video {
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  /* tipografía: una sola familia (Archivo) en tres anchos */
+  .t-display {
+    font-variation-settings: 'wdth' 125;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: -0.035em;
+    line-height: 0.86;
+  }
+  .t-head {
+    font-variation-settings: 'wdth' 118;
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: -0.025em;
+    line-height: 0.98;
+  }
+  .t-cond {
+    font-variation-settings: 'wdth' 72;
+    font-weight: 650;
+    letter-spacing: 0.005em;
+  }
+  .t-num {
+    font-variation-settings: 'wdth' 80;
+    font-weight: 750;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  /* botón inclinado como el logo */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 48px;
+    padding: 0 1.4rem;
+    font-variation-settings: 'wdth' 110;
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    isolation: isolate;
+    transition: transform 0.25s var(--ease-shot), color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transform: skewX(var(--slant));
+    border-radius: 6px;
+    background: var(--btn-bg, var(--color-turf));
+    transition: background 0.2s, transform 0.25s var(--ease-shot);
+  }
+  .btn:hover::before {
+    transform: skewX(var(--slant)) scaleX(1.03);
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-red {
+    --btn-bg: var(--color-turf);
+    color: #fff;
+  }
+  .btn-red:hover {
+    --btn-bg: var(--color-turf-deep);
+  }
+  .btn-ink {
+    --btn-bg: var(--color-ink);
+    color: #fff;
+  }
+  .btn-chalk {
+    --btn-bg: #fff;
+    color: var(--color-ink);
+  }
+  .btn-ghost {
+    --btn-bg: transparent;
+    color: inherit;
+  }
+  .btn-ghost::before {
+    border: 2px solid currentColor;
+  }
+  .btn[disabled] {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  /* etiqueta inclinada */
+  .tag {
+    display: inline-block;
+    --tag-slant: calc(var(--slant) * -1);
+    padding: 0.18rem 0.6rem;
+    font-variation-settings: 'wdth' 85;
+    font-weight: 750;
+    font-size: 0.78rem;
+    line-height: 1.3;
+    transform: skewX(var(--slant));
+  }
+  .tag > span {
+    display: inline-block;
+    transform: skewX(var(--tag-slant));
+  }
+
+  /* las tres líneas de velocidad del logo */
+  .speed {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .speed i {
+    display: block;
+    height: 3px;
+    background: currentColor;
+    transform: skewX(var(--slant));
+  }
+  .speed i:nth-child(1) {
+    width: 22px;
+    margin-left: 8px;
+  }
+  .speed i:nth-child(2) {
+    width: 30px;
+    margin-left: 4px;
+  }
+  .speed i:nth-child(3) {
+    width: 18px;
+  }
+
+  .input {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 0.95rem;
+    border-radius: 14px;
+    background: #fff;
+    font-size: 16px;
+    box-shadow: inset 0 0 0 1px rgb(18 21 28 / 0.14);
+    outline: none;
+    transition: box-shadow 0.15s;
+  }
+  .input:focus {
+    box-shadow: inset 0 0 0 2px var(--color-ink);
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* en modo captura nada de cursores ni barras */
+html[data-capture='1'] {
+  scrollbar-width: none;
+}
+html[data-capture='1'] ::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes scrollhint {
+  0% { transform: scaleY(0); opacity: 1; }
+  60% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+@keyframes storyprogress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}

@@ -1,0 +1,24 @@
+node_modules/
+.next/
+dist/
+*.tsbuildinfo
+__pycache__/
+.env
+.env.local
+.env.production
+# archivos generados en el servidor: fotos/videos/modelos optimizados (los del catálogo inicial van versionados con git add -f)
+apps/api/storage/media/
+apps/api/storage/mail-outbox/
+apps/api/storage/tmp/
+qa/shots/
+qa/report/
+media/raw/
+media/3d/raw/
+reel/
+_to_delete/
+Claude outputs/
+*.tar
+*.tar.gz
+*.log
+.DS_Store
+Thumbs.db
