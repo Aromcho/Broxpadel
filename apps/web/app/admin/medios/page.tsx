@@ -7,7 +7,7 @@ import { api } from '@/admin/api';
 import { Btn, Field, inputCls, Modal, PageTitle, useToast } from '@/admin/ui';
 import { thumb, Uploader, type MediaRow } from '@/admin/MediaPicker';
 
-const KINDS = [['', 'Todo'], ['image', 'Fotos'], ['video', 'Videos']];
+const KINDS = [['', 'Todo'], ['image', 'Fotos'], ['video', 'Videos'], ['model', '3D'], ['usdz', 'AR iPhone']];
 const kb = (n: number | null) => (n ? (n > 1e6 ? `${(n / 1e6).toFixed(1)} MB` : `${Math.round(n / 1e3)} KB`) : '');
 
 export default function MediaLibrary() {

@@ -13,17 +13,17 @@ BROX vende ropa de pádel para jugar: remeras de secado rápido con UPF 50+, rem
 ## Secciones
 
 1. Portada con los videos de la cancha y franja de características.
-2. Historias destacadas como en Instagram + catálogo con filtros.
+2. Historias destacadas como en Instagram + catálogo con filtros y *Vista 3D*.
 3. Colecciones (Nueva temporada, Conjuntos, Torneo BROX).
 4. *En la cancha*: reels reales con la prenda que se ve en cada uno.
 5. Banners con video y franja de información (envíos, pagos, cambios).
-6. Ficha de producto con video de la prenda y fotos, colores de la familia, talles con stock, guía de talles, *En acción* y *Combinala con*.
+6. Ficha de producto con video de la prenda y fotos, pestaña 3D y AR, colores de la familia, talles con stock, guía de talles, *En acción* y *Combinala con*.
 7. Carrito, checkout (Mercado Pago, transferencia con descuento, WhatsApp), seguimiento del pedido.
 8. Contacto, envíos y pagos, talles, arrepentimiento, 404.
 
-## 3D de las prendas (retirado)
+## 3D de las prendas (opcional, convive con los videos)
 
-A la marca no le gustaron las prendas en 3D: se sacaron de la tienda y en su lugar se muestran los videos de cada prenda en la cancha (si tiene) o solo las fotos. Los modelos quedan en `media/3d` por si se retoman. Lo que sigue es cómo se habían hecho.
+La ficha arranca con el video de la prenda en la cancha (si tiene) y las fotos; el 3D queda en una pestaña aparte (*Girar en 3D*) con AR. En el catálogo, al pasar el mouse se ve el video, o el 3D si la prenda no tiene video; *Vista 3D* hace girar todas. Cómo se hicieron los modelos:
 
 
 Se probaron tres caminos sobre las mismas remeras (`media/3d/comparacion-3d.jpg`):
@@ -40,7 +40,7 @@ Se probaron tres caminos sobre las mismas remeras (`media/3d/comparacion-3d.jpg`
 
 - La portada muestra primero el póster del video (WebP) y carga solo el video actual y el siguiente; los demás no se descargan hasta que les toca.
 - Videos en MP4 (H.264) y WebM (VP9), 720/1080, recorte vertical para celular y horizontal para escritorio, sin audio.
-- Sin WebGL: la tienda ya no carga three.js. Los videos de las prendas se descargan solo al verlos (ficha) o al pasar el mouse (catálogo).
+- El 3D (three.js) se descarga solo si se abre la pestaña *Girar en 3D*, se prende *Vista 3D* o se pasa el mouse por una prenda sin video; el catálogo usa **un solo lienzo WebGL** para todas las prendas. Los videos se descargan solo al verlos.
 
 ## Calidad
 

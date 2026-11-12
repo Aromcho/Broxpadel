@@ -42,7 +42,7 @@ function Row({ p, canDrag, onDrop, quick }: { p: Product; canDrag: boolean; onDr
         <div className="h-16 w-14 shrink-0 overflow-hidden rounded-lg bg-zinc-200">{img && <img src={img} alt="" className="h-full w-full object-cover" />}</div>
         <Link href={`/admin/productos/${p.id}`} className="min-w-0 flex-1">
           <p className="truncate font-semibold">{p.name}</p>
-          <p className="truncate text-sm text-zinc-500">{money(p.price)} · {p.category?.name ?? 'Sin categoría'} · stock {p.totalStock}</p>
+          <p className="truncate text-sm text-zinc-500">{money(p.price)} · {p.category?.name ?? 'Sin categoría'} · stock {p.totalStock}{p.model ? ' · 3D' : ''}</p>
           <div className="mt-1 flex flex-wrap gap-1">
             {!p.visible && <span className="rounded-full bg-zinc-100 px-2 text-xs font-semibold text-zinc-600">Oculto</span>}
             {p.featured && <span className="rounded-full bg-zinc-900 px-2 text-xs font-semibold text-white">Destacado</span>}

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 import { use, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Reorder } from 'motion/react';
@@ -9,6 +10,7 @@ import { Btn, Card, Field, inputCls, PageTitle, Toggle, useToast } from '@/admin
 import { MediaField, MediaPicker, thumb, type MediaRow } from '@/admin/MediaPicker';
 import type { Product } from '@/lib/types';
 
+const Viewer3D = dynamic(() => import('@/components/product/Viewer3D'), { ssr: false });
 
 type Opt = { categories: { id: number; name: string }[]; collections: { id: number; name: string }[]; sizeGuides: { id: number; name: string }[]; families: string[] };
 type V = { id?: number; size: string; sku: string | null; price: number | null; stock: number; lowStock: number; active: boolean };
@@ -21,7 +23,7 @@ type Form = {
   variants: V[]; media: M[]; collectionIds: number[]; reels: R[];
 };
 const EMPTY: Form = { name: '', slug: '', subtitle: '', description: '', features: [], categoryId: null, price: 0, compareAtPrice: null, family: '', colorName: '', colorHex: '#cccccc', colorHex2: '', garment: 'tee', featured: false, isNew: true, visible: false, modelId: null, usdzId: null, sizeGuideId: null, seoTitle: '', seoDescription: '', variants: [], media: [], collectionIds: [], reels: [] };
-const ROLES = [['front', 'Frente (portada)'], ['back', 'Espalda'], ['detail', 'Detalle'], ['gallery', 'Galería'], ['lifestyle', 'En uso']];
+const ROLES = [['front', 'Frente (3D y portada)'], ['back', 'Espalda'], ['detail', 'Detalle'], ['gallery', 'Galería'], ['lifestyle', 'En uso']];
 
 export default function ProductEdit({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -30,12 +32,14 @@ export default function ProductEdit({ params }: { params: Promise<{ id: string }
   const toast = useToast();
   const [f, setF] = useState<Form | null>(isNew ? EMPTY : null);
   const [opt, setOpt] = useState<Opt | null>(null);
+  const [glbUrl, setGlbUrl] = useState<string | null>(null);
   const [pick, setPick] = useState<'img' | 'reel' | null>(null);
   const [saving, setSaving] = useState(false);
   useEffect(() => {
     api<Opt>('/admin/products/meta/options').then(setOpt);
     if (isNew) return;
     api<Product>(`/admin/products/${id}`).then((p) => {
+      setGlbUrl(p.model?.glb ?? null);
       setF({
         name: p.name, slug: p.slug, subtitle: p.subtitle ?? '', description: p.description ?? '', features: p.features, categoryId: p.category?.id ?? null, price: p.price, compareAtPrice: p.compareAtPrice,
         family: p.family ?? '', colorName: p.colorName ?? '', colorHex: p.colorHex ?? '#cccccc', colorHex2: p.colorHex2 ?? '', garment: p.garment, featured: p.featured, isNew: p.isNew, visible: p.visible,
@@ -79,7 +83,7 @@ export default function ProductEdit({ params }: { params: Promise<{ id: string }
               <Field label="Precio"><input type="number" className={inputCls} value={f.price} onChange={(e) => set('price', Number(e.target.value))} /></Field>
               <Field label="Precio tachado (opcional)"><input type="number" className={inputCls} value={f.compareAtPrice ?? ''} onChange={(e) => set('compareAtPrice', e.target.value ? Number(e.target.value) : null)} /></Field>
               <Field label="Categoría"><select className={inputCls} value={f.categoryId ?? ''} onChange={(e) => set('categoryId', e.target.value ? Number(e.target.value) : null)}><option value="">—</option>{opt.categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select></Field>
-              <Field label="Tipo de prenda"><select className={inputCls} value={f.garment} onChange={(e) => set('garment', e.target.value as Form['garment'])}><option value="tee">Remera</option><option value="shorts">Short</option><option value="socks">Medias</option><option value="other">Otro</option></select></Field>
+              <Field label="Tipo de prenda (para el 3D)"><select className={inputCls} value={f.garment} onChange={(e) => set('garment', e.target.value as Form['garment'])}><option value="tee">Remera</option><option value="shorts">Short</option><option value="socks">Medias</option><option value="other">Otro</option></select></Field>
               <Field label="Descripción" className="md:col-span-2"><textarea className={`${inputCls} min-h-28 py-2`} value={f.description} onChange={(e) => set('description', e.target.value)} /></Field>
               <Field label="Características (una por línea)" className="md:col-span-2"><textarea className={`${inputCls} min-h-24 py-2`} value={f.features.join('\n')} onChange={(e) => set('features', e.target.value.split('\n'))} /></Field>
             </div>
@@ -113,7 +117,7 @@ export default function ProductEdit({ params }: { params: Promise<{ id: string }
           </Card>
 
           <Card title="Fotos" actions={<Btn tone="light" onClick={() => setPick('img')}>+ Agregar fotos</Btn>}>
-            <p className="mb-2 text-sm text-zinc-500">Arrastrá para ordenar. La primera es la portada del catálogo.</p>
+            <p className="mb-2 text-sm text-zinc-500">Arrastrá para ordenar. La primera es la portada; la de “Frente” y “Espalda” se usan para generar el 3D.</p>
             <Reorder.Group axis="y" values={f.media} onReorder={(m) => set('media', m)} className="space-y-2">
               {f.media.map((m, i) => (
                 <Reorder.Item key={m.mediaId} value={m} className="flex cursor-grab items-center gap-3 rounded-xl bg-zinc-50 p-2 ring-1 ring-zinc-200 active:cursor-grabbing">
@@ -144,6 +148,13 @@ export default function ProductEdit({ params }: { params: Promise<{ id: string }
         </div>
 
         <div className="space-y-4">
+          <Card title="Modelo 3D y AR (opcional)">
+            <div className="aspect-square overflow-hidden rounded-xl bg-[#ebe9e3]">{glbUrl ? <Viewer3D url={glbUrl} garment={f.garment} label={f.name} /> : <p className="grid h-full place-items-center p-6 text-center text-sm text-zinc-500">Subí el .glb de la prenda (se optimiza solo: meshopt + texturas WebP) o generalo con <code>npm run models</code>.</p>}</div>
+            <div className="mt-3 grid gap-3">
+              <MediaField label="Modelo 3D (.glb)" kind="model" value={f.modelId} onChange={(id, row) => { set('modelId', id); setGlbUrl(row?.url ?? (id ? glbUrl : null)); }} />
+              <MediaField label="AR para iPhone (.usdz, opcional)" kind="usdz" value={f.usdzId} onChange={(id) => set('usdzId', id)} />
+            </div>
+          </Card>
           <Card title="Color y familia">
             <div className="grid gap-3">
               <Field label="Familia (agrupa los colores de un mismo modelo)" hint="Ej: remera-secado-rapido"><input list="fam" className={inputCls} value={f.family} onChange={(e) => set('family', e.target.value)} /><datalist id="fam">{opt.families.map((x) => <option key={x} value={x} />)}</datalist></Field>
