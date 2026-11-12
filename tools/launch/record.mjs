@@ -1,6 +1,6 @@
 // Graba la tienda en un iPhone (390x797 @2x = pantalla debajo de la barra de estado), cuadro a cuadro a 24 fps:
-// portada con el video de la cancha → catálogo → toque en la remera → remera girando en 3D.
-// El video de fondo y el 3D se controlan por tiempo (?capture=1), así cada cuadro es exacto.
+// portada con el video de la cancha → catálogo → toque en la remera → ficha con el video de la prenda.
+// Los videos se controlan por tiempo (se pausan y se llevan al segundo de cada cuadro), así cada cuadro es exacto.
 // node tools/launch/record.mjs [url]  → /tmp/launch/rec/00000.png …
 import { chromium } from 'playwright';
 import { mkdirSync, rmSync } from 'node:fs';
@@ -56,11 +56,21 @@ for (let i = 0; i < F3; i++) {
 }
 console.log('portada y catálogo:', n, 'cuadros');
 
-// ── 2) ficha del producto girando en 3D (2,4 s) ──
+// ── 2) ficha del producto: su video en la cancha (1,5 s) y bajada a precio y talles (1,0 s) ──
 await p.goto(`${BASE}/producto/remera-brox-violeta?capture=1`, { waitUntil: 'load' });
-await p.waitForFunction(() => window.__setTime && document.querySelector('canvas'), null, { timeout: 90000 });
-await p.waitForTimeout(5000);
-const F4 = Math.round(2.4 * FPS);
-for (let i = 0; i < F4; i++) { await scrollTo(0); await shot(-1.5 + (3.0 * i) / (F4 - 1)); }   // gira de -50° a +50°
+await p.waitForFunction(() => { const v = document.querySelector('main video'); return v && v.readyState >= 2; }, null, { timeout: 60000 });
+await p.waitForTimeout(800);
+const seekMain = (t) => p.evaluate(async (tt) => {
+  const v = document.querySelector('main video');
+  v.pause();
+  const target = Math.min(tt, (v.duration || 5) - 0.05);
+  if (Math.abs(v.currentTime - target) < 0.002) return;
+  await new Promise((r) => { v.addEventListener('seeked', r, { once: true }); v.currentTime = target; setTimeout(r, 2000); });
+}, t);
+const F4 = Math.round(1.5 * FPS), F5 = Math.round(1.0 * FPS);
+const sizesY = await p.evaluate(() => { const el = [...document.querySelectorAll('legend')].find((l) => l.textContent.startsWith('Talle')); return el ? el.getBoundingClientRect().top + scrollY - 420 : 400; });
+let pv = 0.6;
+for (let i = 0; i < F4; i++, pv += 1 / FPS) { await seekMain(pv); await shot(n / FPS); }
+for (let i = 0; i < F5; i++, pv += 1 / FPS) { await seekMain(pv); await scrollTo(lerp(0, sizesY, ease(i / (F5 - 1)))); await shot(n / FPS); }
 console.log('total', n, 'cuadros');
 await b.close();

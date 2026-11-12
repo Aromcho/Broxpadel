@@ -100,7 +100,7 @@ T2_A = text_img('Ahora, también online', font('Display', 64))
 T2_B = text_img('Mirá la tienda desde tu celular', font('Cond', 50), fill=(235, 235, 235))
 T3_A1 = text_img('Remeras y shorts', font('Display', 80))
 T3_A2 = text_img('de pádel', font('Display', 80))
-T3_B = text_img('Miralo en 3D y comprá online', font('Cond', 56), fill=BALL)
+T3_B = text_img('Elegí tu talle y comprá online', font('Cond', 56), fill=BALL)
 C_HANDLE = text_img('broxpadel.online', font('Head', 58))
 C_WA = text_img(f'WhatsApp {WHATSAPP}', font('Cond', 50), fill=(240, 240, 240))
 C_CITY = text_img('Villa Gesell, Buenos Aires', font('Cond', 44), fill=(200, 200, 205))
@@ -197,7 +197,7 @@ def frame(f):
         assert PH_TOP + PH_H <= SAFE_BOTTOM
         return bg
     f3 = f2 - N2
-    if f3 < N3:                                    # ── toma 3: qué venden + 3D ──
+    if f3 < N3:                                    # ── toma 3: qué venden + compra online ──
         t = f3 / FPS
         bg = darken(Image.open(S3[f3]).convert('RGB'), M3).convert('RGBA')
         ex = exit_alpha(f3, N3 - 1)
