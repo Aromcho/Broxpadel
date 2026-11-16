@@ -54,7 +54,7 @@ export default async function ProductPage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([ld, crumbs]) }} />
-      <ProductView initial={p} family={family} business={{ whatsapp: b.whatsapp, transferDiscountPct: b.transferDiscountPct, shippingText: b.shippingText, installmentsText: b.installmentsText }} />
+      <ProductView initial={p} family={family} business={{ whatsapp: b.whatsapp, transferDiscountPct: b.transferDiscountPct, shippingText: b.shippingText, installmentsText: b.installmentsText, mercadoLibreUrl: b.mercadoLibreUrl }} />
       {related.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 pb-24 md:px-6" aria-labelledby="rel">
           <h2 id="rel" className="t-head text-[clamp(2rem,5vw,3rem)]">Combinala con</h2>

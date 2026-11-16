@@ -64,6 +64,17 @@ export class StoreController {
     return { product: p, family, related };
   }
 
+  /** Producto del día (link fijo de la bio: /hoy). Solo con stock; destacados primero; rota cada día (hora de Argentina). */
+  @Get('today')
+  async today() {
+    const all = (await this.catalog.products()).filter((p) => p.inStock);
+    if (!all.length) return { slug: null };
+    const pool = [...all].sort((a, b) => Number(b.featured) - Number(a.featured) || b.totalStock - a.totalStock || a.sortOrder - b.sortOrder);
+    const day = Math.floor((Date.now() - 3 * 3600_000) / 86_400_000);
+    const p = pool[day % pool.length];
+    return { slug: p.slug, name: p.name };
+  }
+
   @Get('slugs')
   async slugs() {
     const [products, categories, collections] = await Promise.all([this.catalog.products(), this.catalog.categories(), this.catalog.collections()]);

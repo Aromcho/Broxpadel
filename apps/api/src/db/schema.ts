@@ -65,6 +65,7 @@ export const business = pgTable('business', {
   email: varchar('email', { length: 160 }),
   instagram: varchar('instagram', { length: 120 }),
   tiendanube: varchar('tiendanube', { length: 200 }),
+  mercadoLibreUrl: varchar('mercado_libre_url', { length: 300 }), // publicaciones de la marca en ML (botón en la ficha)
   address: varchar('address', { length: 200 }),
   city: varchar('city', { length: 120 }),
   province: varchar('province', { length: 120 }),

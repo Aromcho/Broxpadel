@@ -170,7 +170,7 @@ export class AdminDashboardController {
 /* ───────── datos del negocio + horarios ───────── */
 const businessBody = z.object({
   name: z.string().trim().min(1).max(120), tagline: optStr(200), description: optStr(4000), legalId: optStr(40),
-  whatsapp: optStr(40), phone: optStr(40), email: optStr(160), instagram: optStr(120), tiendanube: optStr(200),
+  whatsapp: optStr(40), phone: optStr(40), email: optStr(160), instagram: optStr(120), tiendanube: optStr(200), mercadoLibreUrl: optStr(300),
   address: optStr(200), city: optStr(120), province: optStr(120), lat: z.number().nullable().optional(), lng: z.number().nullable().optional(),
   hasStore: z.boolean().optional(), pickupEnabled: z.boolean().optional(), pickupInfo: optStr(1000),
   transferDiscountPct: z.number().int().min(0).max(50).optional(), transferInfo: optStr(1000), installmentsText: optStr(200), shippingText: optStr(200),

@@ -10,11 +10,12 @@ import { useCart } from '@/lib/cart';
 import Pic from '../Pic';
 import Reel from '../Reel';
 import ARButton from './ARButton';
+import ShippingEstimate from './ShippingEstimate';
 
 const Viewer3D = dynamic(() => import('./Viewer3D'), { ssr: false });
 const isKid = (s: string) => /^\d+$/.test(s);
 
-export default function ProductView({ initial, family, business }: { initial: Product; family: Product[]; business: Pick<Business, 'whatsapp' | 'transferDiscountPct' | 'shippingText' | 'installmentsText'> }) {
+export default function ProductView({ initial, family, business }: { initial: Product; family: Product[]; business: Pick<Business, 'whatsapp' | 'transferDiscountPct' | 'shippingText' | 'installmentsText' | 'mercadoLibreUrl'> }) {
   const [p, setP] = useState(initial);
   const [tab, setTab] = useState<'galeria' | '3d'>('galeria');
   const [size, setSize] = useState<string | null>(null);
@@ -37,6 +38,14 @@ export default function ProductView({ initial, family, business }: { initial: Pr
   const wa = business.whatsapp
     ? `https://wa.me/${business.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`¡Hola Brox! Quiero la ${p.name}${size ? ` en talle ${size}` : ''} (${money(priceNow)}). ¿Hay stock?`)}`
     : null;
+  // sin stock (toda la prenda o el talle elegido): avisar cuando vuelva
+  const soldOut = !p.inStock || (!!variant && !variant.available);
+  const notify = business.whatsapp && soldOut
+    ? `https://wa.me/${business.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`¡Hola Brox! Avisame cuando vuelva la ${p.name}${variant ? ` en talle ${variant.size}` : ''}, por favor.`)}`
+    : null;
+  // Mercado Libre: la publicación de la prenda si la tiene; si no, las publicaciones de la marca
+  const ml = p.sourceUrl && /mercadoli[bv]re/i.test(p.sourceUrl) ? p.sourceUrl : business.mercadoLibreUrl;
+  const firstAvailable = p.variants.find((v) => v.available) ?? null;
 
   const addToCart = () => {
     if (!variant) { setError('Elegí tu talle'); return; }
@@ -141,7 +150,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
               ))}
             </div>
             <p className="mt-2 min-h-5 text-sm" aria-live="polite">
-              {error ? <span className="text-turf">{error}</span> : variant ? (variant.available ? (variant.stock <= variant.lowStock ? <span className="text-turf">¡Quedan {variant.stock}!</span> : <span className="text-mute">En stock</span>) : <span className="text-mute">Sin stock en este talle</span>) : null}
+              {error ? <span className="text-turf">{error}</span> : variant ? (variant.available ? (variant.stock <= Math.max(variant.lowStock, 5) ? <span className="text-turf">¡Quedan {variant.stock}!</span> : <span className="text-mute">En stock</span>) : <span className="font-semibold text-turf">Agotado en este talle</span>) : null}
             </p>
           </fieldset>
 
@@ -151,9 +160,20 @@ export default function ProductView({ initial, family, business }: { initial: Pr
               <span className="t-num w-6 text-center" aria-live="polite">{qty}</span>
               <button className="grid h-12 w-11 place-items-center text-xl" onClick={() => setQty(Math.min(variant?.stock ?? 9, qty + 1))} aria-label="Sumar uno">+</button>
             </div>
-            <button className="btn btn-red flex-1" onClick={addToCart} disabled={!p.inStock}>{p.inStock ? 'Agregar al carrito' : 'Sin stock'}</button>
+            <button className="btn btn-red flex-1" onClick={addToCart} disabled={!p.inStock}>{p.inStock ? 'Agregar al carrito' : 'Agotado'}</button>
           </div>
-          {wa && <a href={wa} target="_blank" rel="noopener" className="btn btn-ghost mt-3 w-full">Consultar por WhatsApp</a>}
+          {notify
+            ? <a href={notify} target="_blank" rel="noopener" className="btn btn-ink mt-3 w-full">Avisame cuando llegue</a>
+            : wa && <a href={wa} target="_blank" rel="noopener" className="btn btn-ghost mt-3 w-full">Consultar por WhatsApp</a>}
+          {ml && (
+            <a href={ml} target="_blank" rel="noopener" className="mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#ffe600] px-4 font-semibold text-[#2d3277] ring-1 ring-black/10 transition hover:brightness-95">
+              {/* logo oficial de Mercado Libre: subir el archivo a public/brand/mercadolibre.svg (si no está, el botón queda solo con texto) */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/brand/mercadolibre.svg" alt="" className="h-6 w-auto" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+              Ver en Mercado Libre
+            </a>
+          )}
+          {ml && <p className="mt-1.5 text-center text-xs text-mute">En la web pagás menos{business.transferDiscountPct ? ` y con transferencia tenés ${business.transferDiscountPct}% off` : ''}.</p>}
 
           <ul className="mt-8 space-y-2">
             {p.features.map((f) => (
@@ -162,7 +182,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
           </ul>
           {p.description && <p className="mt-6 max-w-[60ch] text-[17px] leading-relaxed text-ink/85">{p.description}</p>}
           <dl className="mt-8 divide-y divide-black/10 rounded-2xl bg-white ring-1 ring-black/10">
-            <div className="flex gap-4 p-4"><dt className="t-cond w-24 shrink-0 text-mute">Envío</dt><dd>{business.shippingText ?? 'A todo el país'}. El costo se coordina según tu código postal.</dd></div>
+            <div className="flex gap-4 p-4"><dt className="t-cond w-24 shrink-0 text-mute">Envío</dt><dd className="min-w-0 flex-1"><ShippingEstimate variantId={(variant?.available ? variant.id : firstAvailable?.id) ?? null} qty={qty} fallbackText={`${business.shippingText ?? 'A todo el país'}. Calculá el costo con tu código postal.`} /></dd></div>
             <div className="flex gap-4 p-4"><dt className="t-cond w-24 shrink-0 text-mute">Pago</dt><dd>Mercado Pago, transferencia{business.transferDiscountPct ? ` (${business.transferDiscountPct}% off)` : ''} o pedido por WhatsApp.</dd></div>
             <div className="flex gap-4 p-4"><dt className="t-cond w-24 shrink-0 text-mute">Cambios</dt><dd>Tenés 10 días para arrepentirte de la compra. <Link href="/arrepentimiento" className="underline underline-offset-4">Cómo hacerlo</Link></dd></div>
           </dl>

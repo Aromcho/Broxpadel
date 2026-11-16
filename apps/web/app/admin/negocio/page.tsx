@@ -40,7 +40,7 @@ export default function Business() {
         </Card>
         <Card title="Contacto">
           <div className="grid gap-3 md:grid-cols-2">
-            {t('whatsapp', 'WhatsApp', 'Con código de país, sin + ni espacios. Ej: 5492255409164')}{t('phone', 'Teléfono')}{t('email', 'Email')}{t('tiendanube', 'Tiendanube (opcional)')}
+            {t('whatsapp', 'WhatsApp', 'Con código de país, sin + ni espacios. Ej: 5492255409164')}{t('phone', 'Teléfono')}{t('email', 'Email')}{t('tiendanube', 'Tiendanube (opcional)')}{t('mercadoLibreUrl', 'Mercado Libre (opcional)', 'Link a las publicaciones de la marca. Aparece como botón en cada ficha.')}
             {t('address', 'Dirección del local')}{t('city', 'Ciudad')}{t('province', 'Provincia')}
             {t('lat', 'Latitud (mapa)')}{t('lng', 'Longitud (mapa)')}
           </div>

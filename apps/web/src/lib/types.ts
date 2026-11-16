@@ -17,7 +17,7 @@ export type Product = {
 export type Hours = { id: number; day: number; open: string; close: string; note: string | null };
 export type Business = {
   name: string; tagline: string | null; description: string | null; legalId: string | null; whatsapp: string | null; phone: string | null; email: string | null;
-  instagram: string | null; tiendanube: string | null; address: string | null; city: string | null; province: string | null; lat: number | null; lng: number | null;
+  instagram: string | null; tiendanube: string | null; mercadoLibreUrl: string | null; address: string | null; city: string | null; province: string | null; lat: number | null; lng: number | null;
   hasStore: boolean; pickupEnabled: boolean; pickupInfo: string | null; transferDiscountPct: number; hasTransferInfo: boolean; installmentsText: string | null;
   shippingText: string | null; announcement: string | null; seoTitle: string | null; seoDescription: string | null; logo: Img | null; hours: Hours[];
 };

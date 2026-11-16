@@ -7,7 +7,9 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useCart, cartTotal } from '@/lib/cart';
 import { money } from '@/lib/format';
 
-export default function CartDrawer({ transferPct }: { transferPct: number }) {
+type Suggestion = { id: number; slug: string; name: string; price: number; garment: string; image: string | null };
+
+export default function CartDrawer({ transferPct, freeFrom, suggestions = [] }: { transferPct: number; freeFrom?: number | null; suggestions?: Suggestion[] }) {
   const { items, open, setOpen, setQty, remove } = useCart();
   useEffect(() => {
     const k = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
@@ -15,6 +17,12 @@ export default function CartDrawer({ transferPct }: { transferPct: number }) {
     return () => window.removeEventListener('keydown', k);
   }, [setOpen]);
   const total = cartTotal(items);
+  const missing = freeFrom ? Math.max(0, freeFrom - total) : 0;
+  // completar el conjunto: si hay remeras y no shorts (o al revés), sugerir la otra prenda
+  const inCart = new Set(items.map((i) => i.productId));
+  const garments = new Set(suggestions.filter((s) => inCart.has(s.id)).map((s) => s.garment));
+  const want = garments.has('tee') && !garments.has('shorts') ? 'shorts' : garments.has('shorts') && !garments.has('tee') ? 'tee' : null;
+  const extra = want ? suggestions.filter((s) => s.garment === want && !inCart.has(s.id)).slice(0, 2) : [];
   return (
     <AnimatePresence>
       {open && (
@@ -39,6 +47,12 @@ export default function CartDrawer({ transferPct }: { transferPct: number }) {
               </div>
             ) : (
               <>
+                {freeFrom ? (
+                  <div className="border-b border-black/10 px-5 py-3" aria-live="polite">
+                    <p className="text-sm">{missing > 0 ? <>Te faltan <span className="t-num font-semibold">{money(missing)}</span> para el <b>envío gratis</b></> : <><b>¡Tenés envío gratis!</b> <span className="text-mute">(en las zonas con envío)</span></>}</p>
+                    <div className="mt-2 h-2 overflow-hidden rounded-full bg-black/10"><div className="h-full rounded-full bg-turf transition-all" style={{ width: `${Math.min(100, (total / freeFrom) * 100)}%` }} /></div>
+                  </div>
+                ) : null}
                 <ul className="flex-1 divide-y divide-black/10 overflow-y-auto px-5">
                   {items.map((i) => (
                     <li key={i.variantId} className="flex gap-3 py-4">
@@ -59,6 +73,19 @@ export default function CartDrawer({ transferPct }: { transferPct: number }) {
                       </div>
                     </li>
                   ))}
+                  {extra.length > 0 && (
+                    <li className="py-4">
+                      <p className="t-cond text-sm text-mute">{want === 'shorts' ? 'Completá el conjunto con un short' : 'Completá el conjunto con una remera'}</p>
+                      <div className="mt-2 grid grid-cols-2 gap-3">
+                        {extra.map((s) => (
+                          <Link key={s.id} href={`/producto/${s.slug}`} onClick={() => setOpen(false)} className="flex gap-2 rounded-xl bg-white p-2 ring-1 ring-black/10">
+                            <span className="h-14 w-11 shrink-0 overflow-hidden rounded-md bg-chalk-2">{s.image && <img src={s.image} alt="" className="h-full w-full object-cover" />}</span>
+                            <span className="min-w-0 text-sm leading-tight"><span className="line-clamp-2 font-semibold">{s.name}</span><span className="t-num text-mute">{money(s.price)}</span></span>
+                          </Link>
+                        ))}
+                      </div>
+                    </li>
+                  )}
                 </ul>
                 <div className="border-t border-black/10 px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-4">
                   <div className="flex items-baseline justify-between">

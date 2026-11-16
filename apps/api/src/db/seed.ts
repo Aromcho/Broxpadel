@@ -98,7 +98,7 @@ async function main() {
   await db.insert(schema.business).values({
     id: 1, name: 'Brox Padel', tagline: 'Indumentaria de pádel. Diseño, rendimiento y estilo.',
     description: 'Diseñamos indumentaria de pádel pensada para jugar sin límites: tecnología Dry-Wick de secado ultrarrápido, protección UPF 50+ y poliéster ultraliviano que vas a sentir que no llevás nada puesto. Confort, calidad y precio.',
-    legalId: '20-38676046-3', instagram: 'broxpadel', tiendanube: 'https://broxpadel.mitiendanube.com',
+    legalId: '20-38676046-3', instagram: 'broxpadel', tiendanube: 'https://broxpadel.mitiendanube.com', mercadoLibreUrl: 'https://listado.mercadolibre.com.ar/_CustId_9529578',
     // único teléfono publicado por la marca (inscripciones del Torneo BROX, post del 31/07/2026): confirmalo en el panel
     whatsapp: process.env.SEED_WHATSAPP ?? '5492255409164',
     city: 'Villa Gesell', province: 'Buenos Aires', hasStore: false, pickupEnabled: false,
