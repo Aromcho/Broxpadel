@@ -21,6 +21,8 @@ import { PaymentsController } from './payments/payments.controller';
 import { AdminProductsController } from './admin/products.controller';
 import { AdminMediaController, AdminOrdersController, AdminDashboardController, AdminBusinessController, AdminUsersController } from './admin/misc.controllers';
 import { CategoriesCrud, CollectionsCrud, StoriesCrud, StoryItemsCrud, BannersCrud, CouponsCrud, ZonesCrud, SizeGuidesCrud } from './admin/admin.controllers';
+import { InternalController } from './internal/internal.controller';
+import { InternalGuard } from './internal/internal.guard';
 
 @Controller('health')
 class HealthController {
@@ -42,10 +44,11 @@ class HealthController {
     HealthController, AuthController, StoreController, PaymentsController,
     AdminProductsController, AdminMediaController, AdminOrdersController, AdminDashboardController, AdminBusinessController, AdminUsersController,
     CategoriesCrud, CollectionsCrud, StoriesCrud, StoryItemsCrud, BannersCrud, CouponsCrud, ZonesCrud, SizeGuidesCrud,
+    InternalController,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },
-    AuthGuard, MediaService, CatalogService, PricingService, OrdersService, MailService, MercadoPagoService,
+    AuthGuard, InternalGuard, MediaService, CatalogService, PricingService, OrdersService, MailService, MercadoPagoService,
   ],
 })
 export class AppModule {}
