@@ -148,7 +148,7 @@ export default function ProductEdit({ params }: { params: Promise<{ id: string }
         </div>
 
         <div className="space-y-4">
-          <Card title="Modelo 3D y AR (opcional)">
+          <Card title="Modelo 3D y AR (oculto en la tienda por ahora)">
             <div className="aspect-square overflow-hidden rounded-xl bg-[#ebe9e3]">{glbUrl ? <Viewer3D url={glbUrl} garment={f.garment} label={f.name} /> : <p className="grid h-full place-items-center p-6 text-center text-sm text-zinc-500">Subí el .glb de la prenda (se optimiza solo: meshopt + texturas WebP) o generalo con <code>npm run models</code>.</p>}</div>
             <div className="mt-3 grid gap-3">
               <MediaField label="Modelo 3D (.glb)" kind="model" value={f.modelId} onChange={(id, row) => { set('modelId', id); setGlbUrl(row?.url ?? (id ? glbUrl : null)); }} />

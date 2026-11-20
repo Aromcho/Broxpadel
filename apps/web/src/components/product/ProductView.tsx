@@ -9,14 +9,16 @@ import { money, pick } from '@/lib/format';
 import { useCart } from '@/lib/cart';
 import Pic from '../Pic';
 import Reel from '../Reel';
-import ARButton from './ARButton';
+import { SHOW_3D } from '@/lib/features';
 
 const Viewer3D = dynamic(() => import('./Viewer3D'), { ssr: false });
+const ARButton = dynamic(() => import('./ARButton'), { ssr: false });
 const isKid = (s: string) => /^\d+$/.test(s);
 
 export default function ProductView({ initial, family, business }: { initial: Product; family: Product[]; business: Pick<Business, 'whatsapp' | 'transferDiscountPct' | 'shippingText' | 'installmentsText'> }) {
   const [p, setP] = useState(initial);
   const [tab, setTab] = useState<'galeria' | '3d'>('galeria');
+  const model = SHOW_3D ? p.model : null;   // 3D oculto por ahora (ver lib/features)
   const [size, setSize] = useState<string | null>(null);
   const [qty, setQty] = useState(1);
   const [slide, setSlide] = useState(0);
@@ -28,7 +30,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
 
   useEffect(() => { if (single) setSize(p.variants[0].size); }, [p, single]);
   const swap = (np: Product) => {
-    setP(np); setSize(null); setQty(1); setSlide(0); setError(null); if (!np.model) setTab('galeria');
+    setP(np); setSize(null); setQty(1); setSlide(0); setError(null); if (!(SHOW_3D && np.model)) setTab('galeria');
     window.history.replaceState(null, '', `/producto/${np.slug}`);
     document.title = `${np.name} · Brox Padel`;
   };
@@ -60,7 +62,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
       <div className="grid gap-8 lg:grid-cols-[1.25fr_1fr] lg:gap-12">
         {/* medios */}
         <div className="lg:sticky lg:top-24 lg:self-start">
-          {p.model && (
+          {model && (
             <div className="mb-3 inline-flex rounded-full bg-white p-1 ring-1 ring-black/10" role="tablist" aria-label="Vista">
               {(['galeria', '3d'] as const).map((t) => (
                 <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)} className={clsx('t-cond h-9 rounded-full px-4 text-sm transition', tab === t ? 'bg-ink text-white' : '')}>
@@ -70,8 +72,8 @@ export default function ProductView({ initial, family, business }: { initial: Pr
             </div>
           )}
           <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-tile)] bg-[#ebe9e3] md:aspect-square">
-            {tab === '3d' && p.model ? (
-              <Viewer3D url={p.model.glb} poster={pick(front, 960)} garment={p.garment} label={p.name} />
+            {tab === '3d' && model ? (
+              <Viewer3D url={model.glb} poster={pick(front, 960)} garment={p.garment} label={p.name} />
             ) : (<>
             <div className="no-scrollbar flex h-full snap-x snap-mandatory overflow-x-auto" onScroll={(e) => setSlide(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}>
               {slides.map((sl, i) => sl.video
@@ -97,7 +99,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
               );
             })}
           </div>
-          {p.model && <div className="mt-3 flex flex-wrap items-center gap-3"><ARButton glb={p.model.glb} usdz={p.model.usdz} name={p.name} poster={pick(front, 720)} />{tab === '3d' && <span className="t-cond text-sm text-mute">Arrastrá para girarla · pellizcá para acercar</span>}</div>}
+          {model && <div className="mt-3 flex flex-wrap items-center gap-3"><ARButton glb={model.glb} usdz={model.usdz} name={p.name} poster={pick(front, 720)} />{tab === '3d' && <span className="t-cond text-sm text-mute">Arrastrá para girarla · pellizcá para acercar</span>}</div>}
         </div>
 
         {/* info */}
