@@ -7,12 +7,12 @@ import { AnimatePresence, motion } from 'motion/react';
 import type { Business, Product } from '@/lib/types';
 import { money, pick } from '@/lib/format';
 import { useCart } from '@/lib/cart';
+import { SHOW_3D } from '@/lib/features';
 import Pic from '../Pic';
 import Reel from '../Reel';
-import { SHOW_3D } from '@/lib/features';
+import ARButton from './ARButton';
 
 const Viewer3D = dynamic(() => import('./Viewer3D'), { ssr: false });
-const ARButton = dynamic(() => import('./ARButton'), { ssr: false });
 const isKid = (s: string) => /^\d+$/.test(s);
 
 export default function ProductView({ initial, family, business }: { initial: Product; family: Product[]; business: Pick<Business, 'whatsapp' | 'transferDiscountPct' | 'shippingText' | 'installmentsText'> }) {
