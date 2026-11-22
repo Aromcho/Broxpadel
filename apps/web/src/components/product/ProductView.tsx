@@ -36,6 +36,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
   };
   const front = p.images.find((i) => i.role === 'front') ?? p.images[0];
   const priceNow = variant?.price ?? p.price;
+  const ml = p.sourceUrl && /^https:\/\/([a-z0-9-]+\.)*mercadoli[bv]re\.com\.ar\//i.test(p.sourceUrl) ? p.sourceUrl : null;
   const wa = business.whatsapp
     ? `https://wa.me/${business.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`¡Hola Brox! Quiero la ${p.name}${size ? ` en talle ${size}` : ''} (${money(priceNow)}). ¿Hay stock?`)}`
     : null;
@@ -156,6 +157,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
             <button className="btn btn-red flex-1" onClick={addToCart} disabled={!p.inStock}>{p.inStock ? 'Agregar al carrito' : 'Sin stock'}</button>
           </div>
           {wa && <a href={wa} target="_blank" rel="noopener" className="btn btn-ghost mt-3 w-full">Consultar por WhatsApp</a>}
+          {ml && <a href={ml} target="_blank" rel="noopener" className="btn mt-3 w-full text-[#2d3277] [--btn-bg:#ffe600]">Comprar en Mercado Libre</a>}
 
           <ul className="mt-8 space-y-2">
             {p.features.map((f) => (

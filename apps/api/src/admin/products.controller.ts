@@ -22,6 +22,7 @@ const productBody = z.object({
   modelId: z.number().int().positive().nullable().optional(), usdzId: z.number().int().positive().nullable().optional(),
   sizeGuideId: z.number().int().positive().nullable().optional(),
   seoTitle: optStr(200), seoDescription: optStr(500),
+  sourceUrl: optStr(300), // publicación externa; si es de Mercado Libre, la ficha muestra el botón
   variants: z.array(z.object({
     id: z.number().int().positive().optional(), size: z.string().trim().min(1).max(20), sku: optStr(60),
     price: z.number().int().min(0).nullable().optional(), stock: z.number().int().min(0), lowStock: z.number().int().min(0).optional(), active: z.boolean().optional(),
