@@ -30,5 +30,12 @@ export const config = {
     notify: process.env.MAIL_NOTIFY ?? '',
   },
   pendingOrderTtlHours: Number(process.env.PENDING_ORDER_TTL_HOURS ?? 48),
+  // Píxel de Meta (conjunto de datos "Brox Padel · broxpadel.com" del portfolio BROX) y API de conversiones
+  meta: {
+    pixelId: process.env.META_PIXEL_ID ?? '1855460625691111',
+    capiToken: process.env.META_CAPI_TOKEN ?? '',
+    testEventCode: process.env.META_TEST_EVENT_CODE ?? '',
+    graphVersion: process.env.META_GRAPH_VERSION ?? 'v24.0',
+  },
 };
 export const mediaDir = join(config.storageDir, 'media');

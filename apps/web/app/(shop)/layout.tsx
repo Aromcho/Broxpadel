@@ -3,6 +3,7 @@ import Header from '@/components/shop/Header';
 import Footer from '@/components/shop/Footer';
 import CartDrawer from '@/components/shop/CartDrawer';
 import SmoothScroll from '@/components/shop/SmoothScroll';
+import Analytics from '@/components/Analytics';
 import { SITE_URL, pick } from '@/lib/format';
 
 export const dynamic = 'force-dynamic';
@@ -37,6 +38,7 @@ export default async function ShopLayout({ children }: { children: React.ReactNo
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }} />
       <a href="#contenido" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded-lg focus:bg-ink focus:px-4 focus:py-2 focus:text-white">Saltar al contenido</a>
+      <Analytics />
       <SmoothScroll />
       <Header announcement={business.announcement} />
       <main id="contenido">{children}</main>

@@ -8,6 +8,7 @@ import { MailService, STATUS_LABEL } from '../mail/mail.service';
 import { RevalidateService } from '../common/revalidate.service';
 import { ActivityService } from '../common/activity.service';
 import { config } from '../config';
+import { TrackingService } from '../tracking/tracking.service';
 
 export type OrderStatus = (typeof schema.orderStatusEnum.enumValues)[number];
 const money = (n: number) => '$' + n.toLocaleString('es-AR');
@@ -25,7 +26,7 @@ export type CheckoutInput = {
 @Injectable()
 export class OrdersService {
   private log = new Logger('Orders');
-  constructor(private pricing: PricingService, private mail: MailService, private reval: RevalidateService, private activity: ActivityService) {}
+  constructor(private pricing: PricingService, private mail: MailService, private reval: RevalidateService, private activity: ActivityService, private tracking: TrackingService) {}
 
   async create(input: CheckoutInput) {
     const q = await this.pricing.quote({ items: input.items, couponCode: input.couponCode, postcode: input.postcode, province: input.province, zoneId: input.zoneId });
@@ -131,6 +132,8 @@ export class OrdersService {
     const res = await this.byNumber(o.number);
     if (o.status !== status && res.order.customerEmail && status !== 'pending_payment') this.mail.orderStatus(res.order, res.items).catch(() => undefined);
     if (status === 'cancelled' || o.stockRestored) this.reval.tags('products').catch(() => undefined);
+    // compra para el píxel de Meta: la primera vez que el pedido queda pagado (una sola vez por pedido)
+    if (o.status === 'pending_payment' && ['paid', 'preparing', 'shipped', 'delivered'].includes(status)) this.tracking.purchase(res.order, res.items).catch(() => undefined);
     return res;
   }
 

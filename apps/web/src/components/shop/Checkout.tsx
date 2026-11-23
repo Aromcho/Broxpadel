@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { useCart } from '@/lib/cart';
 import { useHydrated } from '@/lib/hooks';
 import { money } from '@/lib/format';
+import { track, trackingContext } from '@/lib/track';
 
 const PROVINCES = ['Buenos Aires', 'CABA', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba', 'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro', 'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe', 'Santiago del Estero', 'Tierra del Fuego', 'Tucumán'];
 
@@ -32,6 +33,14 @@ export default function Checkout({ mp, whatsapp, transferPct, hasTransferInfo }:
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const cartKey = useMemo(() => JSON.stringify(items.map((i) => [i.variantId, i.qty])), [items]);
+  const tItems = () => items.map((i) => ({ id: i.productId, name: i.name, price: i.price, qty: i.qty, size: i.size, color: i.color }));
+  const started = useRef(false);
+  useEffect(() => {
+    if (!hydrated || !items.length || started.current) return;
+    started.current = true;
+    track('InitiateCheckout', { items: tItems() });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated, items.length]);
 
   useEffect(() => {
     if (!hydrated || !items.length) return;
@@ -75,10 +84,12 @@ export default function Checkout({ mp, whatsapp, transferPct, hasTransferInfo }:
           customer: { name: form.name, email: form.email, phone: form.phone }, zoneId,
           address: needsAddress ? form.address : null, city: needsAddress ? form.city : null, province: needsAddress ? form.province : null, postcode: form.postcode || null,
           couponCode: coupon, note: form.note || null,
+          tracking: trackingContext(),
         }),
       });
       const j = await r.json();
       if (!r.ok) throw new Error(j.message ?? 'No pudimos crear el pedido');
+      track('AddPaymentInfo', { items: tItems(), value: j.total, orderNumber: j.number, paymentMethod: method, eventId: `pay-${j.number}` });
       clear();
       const statusUrl = `/pedido/${j.number}?t=${j.token}`;
       if (j.payUrl) { window.location.href = j.payUrl; return; }

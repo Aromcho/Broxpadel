@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import type { Business, Product } from '@/lib/types';
 import { money, pick } from '@/lib/format';
 import { useCart } from '@/lib/cart';
+import { track, trackCustom } from '@/lib/track';
 import { SHOW_3D } from '@/lib/features';
 import Pic from '../Pic';
 import Reel from '../Reel';
@@ -30,6 +31,9 @@ export default function ProductView({ initial, family, business }: { initial: Pr
   const single = p.variants.length === 1;
 
   useEffect(() => { if (single) setSize(p.variants[0].size); }, [p, single]);
+  const tItem = (qty = 1, price = p.price, size: string | null = null) => ({ id: p.id, name: p.name, price, qty, size, color: p.colorName, category: p.category?.name ?? null });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { track('ViewContent', { items: [tItem()] }); }, [p.id]);
   const swap = (np: Product) => {
     setP(np); setSize(null); setQty(1); setSlide(0); setError(null); if (!(SHOW_3D && np.model)) setTab('galeria');
     window.history.replaceState(null, '', `/producto/${np.slug}`);
@@ -53,6 +57,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
     if (!variant) { setError('Elegí tu talle'); return; }
     if (!variant.available) { setError('Ese talle está sin stock'); return; }
     add({ variantId: variant.id, productId: p.id, slug: p.slug, name: p.name, size: variant.size, color: p.colorName, price: variant.price, image: pick(front, 320), max: variant.stock }, qty);
+    track('AddToCart', { items: [tItem(qty, variant.price, variant.size)] });
   };
   const sizes = useMemo(() => p.variants, [p]);
   // galería: los videos de la prenda en la cancha primero (si tiene) y después las fotos
@@ -166,8 +171,8 @@ export default function ProductView({ initial, family, business }: { initial: Pr
           </div>
           {notify
             ? <a href={notify} target="_blank" rel="noopener" className="btn btn-ink mt-3 w-full">Avisame cuando llegue</a>
-            : wa && <a href={wa} target="_blank" rel="noopener" className="btn btn-ghost mt-3 w-full">Consultar por WhatsApp</a>}
-          {ml && <a href={ml} target="_blank" rel="noopener" className="btn mt-3 w-full text-[#2d3277] [--btn-bg:#ffe600]">Comprar en Mercado Libre</a>}
+            : wa && <a href={wa} target="_blank" rel="noopener" className="btn btn-ghost mt-3 w-full" onClick={() => track('Contact', { items: [tItem(1, priceNow, size)] })}>Consultar por WhatsApp</a>}
+          {ml && <a href={ml} target="_blank" rel="noopener" className="btn mt-3 w-full text-[#2d3277] [--btn-bg:#ffe600]" onClick={() => trackCustom('ClickMercadoLibre', { content_ids: [String(p.id)], content_name: p.name, value: priceNow, currency: 'ARS' })}>Comprar en Mercado Libre</a>}
           {ml && business.transferDiscountPct > 0 && <p className="mt-1.5 text-center text-xs text-mute">Comprando en la web con transferencia tenés {business.transferDiscountPct}% off.</p>}
 
           <ul className="mt-8 space-y-2">

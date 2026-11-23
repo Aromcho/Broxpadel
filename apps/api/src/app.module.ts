@@ -8,6 +8,7 @@ import { sql } from 'drizzle-orm';
 import { db } from './db/db';
 import { config } from './config';
 import { CommonModule } from './common/common.module';
+import { TrackingModule } from './tracking/tracking.module';
 import { AuthController } from './auth/auth.controller';
 import { AuthGuard } from './auth/auth.guard';
 import { MediaService } from './media/media.service';
@@ -34,6 +35,7 @@ class HealthController {
 @Module({
   imports: [
     CommonModule,
+    TrackingModule,
     ScheduleModule.forRoot(),
     ThrottlerModule.forRoot([{ ttl: 60_000, limit: 300 }]),
     JwtModule.register({ secret: config.jwtSecret }),
