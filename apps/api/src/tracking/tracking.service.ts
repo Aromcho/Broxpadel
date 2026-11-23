@@ -35,8 +35,35 @@ function phoneAr(v: string | null | undefined) {
 export class TrackingService implements OnModuleInit {
   private log = new Logger('Tracking');
 
+  /** Token y código de prueba cargados desde el panel (/admin/medicion); la variable de entorno tiene prioridad. */
+  private saved: { token: string; testCode: string } = { token: '', testCode: '' };
+  get token() { return config.meta.capiToken || this.saved.token; }
+  get testCode() { return config.meta.testEventCode || this.saved.testCode; }
+  get tokenSource(): 'env' | 'panel' | null { return config.meta.capiToken ? 'env' : this.saved.token ? 'panel' : null; }
   get enabled() {
-    return !!(config.meta.pixelId && config.meta.capiToken);
+    return !!(config.meta.pixelId && this.token);
+  }
+
+  private async loadSettings() {
+    const r = await db.execute(sql`select key, value from app_settings where key in ('meta_capi_token', 'meta_test_event_code')`);
+    const rows = (r as unknown as { rows: { key: string; value: string }[] }).rows ?? [];
+    this.saved = { token: rows.find((x) => x.key === 'meta_capi_token')?.value ?? '', testCode: rows.find((x) => x.key === 'meta_test_event_code')?.value ?? '' };
+  }
+  async saveSetting(key: 'meta_capi_token' | 'meta_test_event_code', value: string) {
+    if (value) await db.execute(sql`insert into app_settings (key, value) values (${key}, ${value}) on conflict (key) do update set value = excluded.value, updated_at = now()`);
+    else await db.execute(sql`delete from app_settings where key = ${key}`);
+    await this.loadSettings();
+  }
+  /** Prueba un token contra el píxel antes de guardarlo. */
+  async checkToken(token: string): Promise<string | null> {
+    try {
+      const r = await fetch(`https://graph.facebook.com/${config.meta.graphVersion}/${config.meta.pixelId}?fields=id,name&access_token=${encodeURIComponent(token)}`, { signal: AbortSignal.timeout(8000) });
+      if (r.ok) return null;
+      const j = (await r.json().catch(() => null)) as { error?: { message?: string } } | null;
+      return j?.error?.message ?? `Meta respondió ${r.status}`;
+    } catch (e) {
+      return (e as Error).message;
+    }
   }
 
   /** Tabla propia (fuera de las migraciones de Drizzle para no chocar con las del servidor). */
@@ -47,8 +74,10 @@ export class TrackingService implements OnModuleInit {
         fbp varchar(200), fbc varchar(300), ga_client_id varchar(80), ip varchar(64), ua varchar(400), source_url varchar(500),
         purchase_sent_at timestamptz, created_at timestamptz not null default now()
       )`);
+      await db.execute(sql`create table if not exists app_settings (key varchar(80) primary key, value text not null, updated_at timestamptz not null default now())`);
+      await this.loadSettings();
     } catch (e) {
-      this.log.error(`No se pudo crear order_tracking: ${(e as Error).message}`);
+      this.log.error(`No se pudieron crear las tablas de medición: ${(e as Error).message}`);
     }
   }
 
@@ -143,9 +172,9 @@ export class TrackingService implements OnModuleInit {
     const body: Record<string, unknown> = {
       data: [{ event_time: Math.floor(Date.now() / 1000), action_source: 'website', ...ev }],
     };
-    if (config.meta.testEventCode) body.test_event_code = config.meta.testEventCode;
+    if (this.testCode) body.test_event_code = this.testCode;
     try {
-      const r = await fetch(`https://graph.facebook.com/${config.meta.graphVersion}/${config.meta.pixelId}/events?access_token=${encodeURIComponent(config.meta.capiToken)}`, {
+      const r = await fetch(`https://graph.facebook.com/${config.meta.graphVersion}/${config.meta.pixelId}/events?access_token=${encodeURIComponent(this.token)}`, {
         method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: AbortSignal.timeout(8000),
       });
       if (!r.ok) {

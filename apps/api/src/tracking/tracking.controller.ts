@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Header, HttpCode, NotFoundException, Param, Post, Req, Res } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Header, HttpCode, NotFoundException, Param, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
 import { existsSync, mkdirSync } from 'fs';
@@ -10,6 +10,7 @@ import { db, schema } from '../db/db';
 import { config, mediaDir } from '../config';
 import { CatalogService } from '../store/catalog.service';
 import { BROWSER_EVENTS, TrackingService } from './tracking.service';
+import { AuthGuard, Roles } from '../auth/auth.guard';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const tag = (k: string, v: string | number | null | undefined) => (v === null || v === undefined || v === '' ? '' : `<g:${k}>${esc(String(v))}</g:${k}>`);
@@ -104,5 +105,45 @@ export class FeedController {
     }
     res.setHeader('Cache-Control', 'public, max-age=86400');
     res.sendFile(out);
+  }
+}
+
+/** Panel → Medición: estado del píxel y carga del token de la API de conversiones (solo administradores). */
+@Controller('admin/tracking')
+@UseGuards(AuthGuard)
+@Roles('admin')
+export class AdminTrackingController {
+  constructor(private tracking: TrackingService) {}
+
+  @Get()
+  status() {
+    const t = this.tracking.token;
+    return {
+      pixelId: config.meta.pixelId,
+      capiConfigured: !!t,
+      tokenSource: this.tracking.tokenSource,
+      tokenEnd: t ? t.slice(-4) : null,
+      testEventCode: this.tracking.testCode || null,
+      feedUrl: `${config.publicUrl}/api/feed/products.xml`,
+    };
+  }
+
+  @Put('meta-token')
+  async setToken(@Body() body: { token?: string }) {
+    const token = String(body?.token ?? '').replace(/\s/g, '');
+    if (!token) { await this.tracking.saveSetting('meta_capi_token', ''); return this.status(); }
+    if (!/^EAA[A-Za-z0-9]{40,}$/.test(token)) throw new BadRequestException('Ese no parece un token de Meta (empieza con EAA y es largo). Copialo entero.');
+    const err = await this.tracking.checkToken(token);
+    if (err) throw new BadRequestException(`Meta rechazó el token: ${err}`);
+    await this.tracking.saveSetting('meta_capi_token', token);
+    return this.status();
+  }
+
+  @Put('test-code')
+  async setTestCode(@Body() body: { code?: string }) {
+    const code = String(body?.code ?? '').trim().slice(0, 40);
+    if (code && !/^[A-Za-z0-9]+$/.test(code)) throw new BadRequestException('El código de prueba solo lleva letras y números');
+    await this.tracking.saveSetting('meta_test_event_code', code);
+    return this.status();
   }
 }
