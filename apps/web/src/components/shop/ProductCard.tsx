@@ -4,7 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import type { Product } from '@/lib/types';
-import { money } from '@/lib/format';
+import { money, offPct } from '@/lib/format';
 import { useInView } from '@/lib/hooks';
 import Pic from '../Pic';
 import Reel from '../Reel';
@@ -28,9 +28,10 @@ export default function ProductCard({ p, show3d, priority, transferPct = 0, onNe
   const front = p.images.find((i) => i.role === 'front') ?? p.images[0];
   const second = p.images.find((i) => i.role === 'back') ?? p.images[1];
   const lowStock = p.inStock && p.totalStock > 0 && p.totalStock <= 3;
+  const off = offPct(p.price, p.compareAtPrice);
   return (
     <article className="group relative" onPointerEnter={(e) => { if (e.pointerType !== 'mouse') return; setHover(true); if (!video && model) onNeed3d?.(); }} onPointerLeave={() => setHover(false)}>
-      <Link href={`/producto/${p.slug}`} className="block focus-visible:outline-offset-4" aria-label={`${p.name}, ${money(p.price)}`}>
+      <Link href={`/producto/${p.slug}`} className="block focus-visible:outline-offset-4" aria-label={`${p.name}, ${money(p.price)}${off ? `, antes ${money(p.compareAtPrice!)}` : ''}`}>
         <div ref={ref} className="tile relative aspect-[4/5] overflow-hidden rounded-[var(--radius-tile)] bg-chalk-2">
           <Pic img={front} sizes="(min-width: 1024px) 25vw, 50vw" className={clsx('absolute inset-0 transition-opacity duration-500', active && loaded && 'opacity-0')} priority={priority} />
           {!video && !can3d && second && (
@@ -39,6 +40,7 @@ export default function ProductCard({ p, show3d, priority, transferPct = 0, onNe
           {playVideo && <Reel video={video} crop="v" rounded={false} className="absolute inset-0" label={p.name} />}
           {active && model && <Card3D glb={model.glb} garment={p.garment} loaded={loaded} onLoaded={() => setLoaded(true)} />}
           <div className="absolute left-3 top-3 flex flex-col items-start gap-1.5">
+            {off > 0 && <span className="tag bg-turf text-white"><span>{off}% OFF</span></span>}
             {p.isNew && <span className="tag bg-ink text-white"><span>Nuevo</span></span>}
             {!p.inStock && <span className="tag bg-white text-ink"><span>Sin stock</span></span>}
             {lowStock && <span className="tag bg-ball text-ink"><span>Últimas unidades</span></span>}
@@ -58,7 +60,8 @@ export default function ProductCard({ p, show3d, priority, transferPct = 0, onNe
             <p className="t-cond mt-0.5 text-sm text-mute">{p.sizes.length > 1 ? `${p.sizes.filter((s) => !/^\d+$/.test(s)).slice(0, 1)[0] ?? p.sizes[0]} a ${p.sizes.filter((s) => !/^\d+$/.test(s)).slice(-1)[0] ?? p.sizes.slice(-1)[0]}` : 'Talle único'}</p>
           </div>
           <div className="text-right">
-            <p className="t-num text-lg leading-tight">{money(p.price)}</p>
+            {off > 0 && <p className="t-num text-sm leading-tight text-mute line-through" aria-hidden>{money(p.compareAtPrice!)}</p>}
+            <p className={clsx('t-num text-lg leading-tight', off > 0 && 'text-turf')}>{money(p.price)}</p>
             {transferPct > 0 && <p className="t-cond text-xs text-mute">{money(p.price * (1 - transferPct / 100))} transf.</p>}
           </div>
         </div>

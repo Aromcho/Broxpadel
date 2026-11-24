@@ -53,7 +53,7 @@ export function OnCourt({ products }: { products: Product[] }) {
                 <p className="font-semibold leading-tight">{p.name}</p>
                 <p className="t-cond text-sm text-white/60">{r.caption}</p>
               </div>
-              <span className="t-num">{money(p.price)}</span>
+              <span className="text-right leading-tight">{p.compareAtPrice && p.compareAtPrice > p.price && <span className="t-num block text-sm text-white/50 line-through">{money(p.compareAtPrice)}</span>}<span className="t-num">{money(p.price)}</span></span>
             </div>
           </Link>
         </li>

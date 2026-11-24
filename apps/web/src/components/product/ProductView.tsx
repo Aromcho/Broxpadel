@@ -5,7 +5,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'motion/react';
 import type { Business, Product } from '@/lib/types';
-import { money, pick } from '@/lib/format';
+import { money, offPct, pick } from '@/lib/format';
 import { useCart } from '@/lib/cart';
 import { SHOW_3D } from '@/lib/features';
 import Pic from '../Pic';
@@ -36,6 +36,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
   };
   const front = p.images.find((i) => i.role === 'front') ?? p.images[0];
   const priceNow = variant?.price ?? p.price;
+  const off = offPct(priceNow, p.compareAtPrice);
   const wa = business.whatsapp
     ? `https://wa.me/${business.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`¡Hola Brox! Quiero la ${p.name}${size ? ` en talle ${size}` : ''} (${money(priceNow)}). ¿Hay stock?`)}`
     : null;
@@ -109,8 +110,10 @@ export default function ProductView({ initial, family, business }: { initial: Pr
             {p.category && <span className="tag bg-white text-ink ring-1 ring-black/10"><span>{p.category.name}</span></span>}
           </div>
           <h1 className="t-head mt-3 text-[clamp(2.2rem,6vw,3.6rem)]">{p.name}</h1>
-          <div className="mt-3 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <p className="t-num text-3xl">{money(priceNow)}</p>
+          {off > 0 && <p className="mt-3 text-mute"><span className="t-num text-lg line-through">{money(p.compareAtPrice!)}</span><span className="sr-only"> precio anterior</span></p>}
+          <div className={clsx('flex flex-wrap items-baseline gap-x-4 gap-y-1', off > 0 ? 'mt-0.5' : 'mt-3')}>
+            <p className={clsx('t-num text-3xl', off > 0 && 'text-turf')}>{money(priceNow)}</p>
+            {off > 0 && <span className="tag bg-turf text-white"><span>{off}% OFF en la web</span></span>}
             {business.transferDiscountPct > 0 && <p className="text-mute"><span className="t-num text-ink">{money(priceNow * (1 - business.transferDiscountPct / 100))}</span> con transferencia</p>}
           </div>
           {business.installmentsText && <p className="mt-1 text-sm text-mute">{business.installmentsText} con Mercado Pago</p>}

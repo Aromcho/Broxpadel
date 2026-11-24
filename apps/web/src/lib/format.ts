@@ -1,4 +1,6 @@
 export const money = (n: number) => '$' + Math.round(n).toLocaleString('es-AR');
+/** % de descuento contra el precio tachado (0 si no hay precio tachado o no es mayor). */
+export const offPct = (price: number, compareAt: number | null | undefined) => (compareAt && compareAt > price ? Math.round((1 - price / compareAt) * 100) : 0);
 export const DAYS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, '');
 
