@@ -1,4 +1,5 @@
-import { Body, Controller, Get, HttpCode, NotFoundException, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, NotFoundException, Param, Post, Query, Req } from '@nestjs/common';
+import type { Request } from 'express';
 import { Throttle } from '@nestjs/throttler';
 import { z } from 'zod';
 import { CatalogService } from './catalog.service';
@@ -7,13 +8,14 @@ import { OrdersService } from '../orders/orders.service';
 import { MercadoPagoService } from '../payments/mercadopago.service';
 import { parse } from '../common/zod';
 import { config } from '../config';
+import { TrackingService } from '../tracking/tracking.service';
 
 const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const cartSchema = z.array(z.object({ variantId: z.coerce.number().int().positive(), qty: z.coerce.number().int().min(1).max(20) })).min(1).max(30);
 
 @Controller('store')
 export class StoreController {
-  constructor(private catalog: CatalogService, private pricing: PricingService, private orders: OrdersService, private mp: MercadoPagoService) {}
+  constructor(private catalog: CatalogService, private pricing: PricingService, private orders: OrdersService, private mp: MercadoPagoService, private tracking: TrackingService) {}
 
   /** Todo lo que necesita el layout y la portada en una sola llamada. */
   @Get('bootstrap')
@@ -64,6 +66,17 @@ export class StoreController {
     return { product: p, family, related };
   }
 
+  /** Producto del día (link fijo de la bio: /hoy). Solo con stock; destacados primero; rota cada día (hora de Argentina). */
+  @Get('today')
+  async today() {
+    const all = (await this.catalog.products()).filter((p) => p.inStock);
+    if (!all.length) return { slug: null };
+    const pool = [...all].sort((a, b) => Number(b.featured) - Number(a.featured) || b.totalStock - a.totalStock || a.sortOrder - b.sortOrder);
+    const day = Math.floor((Date.now() - 3 * 3600_000) / 86_400_000);
+    const p = pool[day % pool.length];
+    return { slug: p.slug, name: p.name };
+  }
+
   @Get('slugs')
   async slugs() {
     const [products, categories, collections] = await Promise.all([this.catalog.products(), this.catalog.categories(), this.catalog.collections()]);
@@ -84,7 +97,7 @@ export class StoreController {
   @Post('checkout')
   @HttpCode(200)
   @Throttle({ default: { limit: 10, ttl: 60_000 } })
-  async checkout(@Body() body: unknown) {
+  async checkout(@Body() body: unknown, @Req() req: Request) {
     const b = parse(z.object({
       items: cartSchema,
       paymentMethod: z.enum(['mercadopago', 'transfer', 'whatsapp']),
@@ -102,6 +115,9 @@ export class StoreController {
       note: z.string().trim().max(500).optional().nullable(),
     }), body);
     const { order, items, whatsappUrl } = await this.orders.create(b);
+    const t = (body as { tracking?: Record<string, unknown> })?.tracking ?? {};
+    const str = (v: unknown) => (typeof v === 'string' && v ? v : null);
+    void this.tracking.orderPlaced(order, items, { fbp: str(t.fbp), fbc: str(t.fbc), gaClientId: str(t.gaClientId), url: str(t.url), ip: req.ip, ua: req.headers['user-agent'] ?? null });
     let payUrl: string | null = null;
     if (b.paymentMethod === 'mercadopago') payUrl = (await this.mp.createPreference(order, items)).url;
     return { number: order.number, token: order.token, total: order.total, paymentMethod: order.paymentMethod, payUrl, whatsappUrl };

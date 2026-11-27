@@ -19,10 +19,10 @@ type R = { mediaId: number; igUrl: string | null; caption: string | null; thumb:
 type Form = {
   name: string; slug: string; subtitle: string; description: string; features: string[]; categoryId: number | null; price: number; compareAtPrice: number | null;
   family: string; colorName: string; colorHex: string; colorHex2: string; garment: 'tee' | 'shorts' | 'socks' | 'other'; featured: boolean; isNew: boolean; visible: boolean;
-  modelId: number | null; usdzId: number | null; sizeGuideId: number | null; seoTitle: string; seoDescription: string;
+  modelId: number | null; usdzId: number | null; sizeGuideId: number | null; seoTitle: string; seoDescription: string; sourceUrl: string;
   variants: V[]; media: M[]; collectionIds: number[]; reels: R[];
 };
-const EMPTY: Form = { name: '', slug: '', subtitle: '', description: '', features: [], categoryId: null, price: 0, compareAtPrice: null, family: '', colorName: '', colorHex: '#cccccc', colorHex2: '', garment: 'tee', featured: false, isNew: true, visible: false, modelId: null, usdzId: null, sizeGuideId: null, seoTitle: '', seoDescription: '', variants: [], media: [], collectionIds: [], reels: [] };
+const EMPTY: Form = { name: '', slug: '', subtitle: '', description: '', features: [], categoryId: null, price: 0, compareAtPrice: null, family: '', colorName: '', colorHex: '#cccccc', colorHex2: '', garment: 'tee', featured: false, isNew: true, visible: false, modelId: null, usdzId: null, sizeGuideId: null, seoTitle: '', seoDescription: '', sourceUrl: '', variants: [], media: [], collectionIds: [], reels: [] };
 const ROLES = [['front', 'Frente (3D y portada)'], ['back', 'Espalda'], ['detail', 'Detalle'], ['gallery', 'Galería'], ['lifestyle', 'En uso']];
 
 export default function ProductEdit({ params }: { params: Promise<{ id: string }> }) {
@@ -43,7 +43,7 @@ export default function ProductEdit({ params }: { params: Promise<{ id: string }
       setF({
         name: p.name, slug: p.slug, subtitle: p.subtitle ?? '', description: p.description ?? '', features: p.features, categoryId: p.category?.id ?? null, price: p.price, compareAtPrice: p.compareAtPrice,
         family: p.family ?? '', colorName: p.colorName ?? '', colorHex: p.colorHex ?? '#cccccc', colorHex2: p.colorHex2 ?? '', garment: p.garment, featured: p.featured, isNew: p.isNew, visible: p.visible,
-        modelId: p.model?.id ?? null, usdzId: p.model?.usdzId ?? null, sizeGuideId: p.sizeGuide?.id ?? null, seoTitle: p.seoTitle ?? '', seoDescription: p.seoDescription ?? '',
+        modelId: p.model?.id ?? null, usdzId: p.model?.usdzId ?? null, sizeGuideId: p.sizeGuide?.id ?? null, seoTitle: p.seoTitle ?? '', seoDescription: p.seoDescription ?? '', sourceUrl: p.sourceUrl ?? '',
         variants: p.variants.map((v) => ({ id: v.id, size: v.size, sku: v.sku, price: v.price === p.price ? null : v.price, stock: v.stock, lowStock: v.lowStock, active: v.active })),
         media: p.images.map((i) => ({ mediaId: i.id, role: i.role ?? 'gallery', thumb: i.variants.find((v) => v.w >= 320)?.url ?? i.url })),
         collectionIds: p.collections.map((c) => c.id),
@@ -57,7 +57,7 @@ export default function ProductEdit({ params }: { params: Promise<{ id: string }
     setSaving(true);
     try {
       const body = {
-        ...f, compareAtPrice: f.compareAtPrice || null, colorHex2: f.colorHex2 || null, family: f.family || null,
+        ...f, compareAtPrice: f.compareAtPrice || null, colorHex2: f.colorHex2 || null, family: f.family || null, sourceUrl: f.sourceUrl.trim() || null,
         variants: f.variants.map((v) => ({ ...v, price: v.price || null, stock: Number(v.stock), lowStock: Number(v.lowStock) })),
         media: f.media.map(({ mediaId, role }) => ({ mediaId, role })), reels: f.reels.map(({ mediaId, igUrl, caption }) => ({ mediaId, igUrl, caption })),
       };
@@ -169,6 +169,9 @@ export default function ProductEdit({ params }: { params: Promise<{ id: string }
           <Card title="Colecciones y talles">
             <div className="space-y-1">{opt.collections.map((c) => <Toggle key={c.id} checked={f.collectionIds.includes(c.id)} onChange={(v) => set('collectionIds', v ? [...f.collectionIds, c.id] : f.collectionIds.filter((x) => x !== c.id))} label={c.name} />)}</div>
             <Field label="Guía de talles" className="mt-3"><select className={inputCls} value={f.sizeGuideId ?? ''} onChange={(e) => set('sizeGuideId', e.target.value ? Number(e.target.value) : null)}><option value="">Sin guía</option>{opt.sizeGuides.map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}</select></Field>
+          </Card>
+          <Card title="Mercado Libre">
+            <Field label="Link de la publicación" hint="Si es un link de Mercado Libre, la ficha muestra el botón “Comprar en Mercado Libre”. Vacío: sin botón."><input className={inputCls} value={f.sourceUrl} onChange={(e) => set('sourceUrl', e.target.value)} placeholder="https://www.mercadolibre.com.ar/…" /></Field>
           </Card>
           <Card title="SEO">
             <div className="grid gap-3">

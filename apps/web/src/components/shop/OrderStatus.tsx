@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { money } from '@/lib/format';
+import { trackPurchaseOnce } from '@/lib/track';
 
 type Data = {
   order: { number: string; status: string; paymentMethod: string; customerName: string; total: number; subtotal: number; discount: number; transferDiscount: number; shippingCost: number; shippingToQuote: boolean; shippingName: string | null; trackingCode: string | null; trackingUrl: string | null; createdAt: string; mpStatus: string | null };
-  items: { id: number; name: string; size: string | null; qty: number; unitPrice: number; image: string | null }[];
+  items: { id: number; productId?: number | null; name: string; size: string | null; color?: string | null; qty: number; unitPrice: number; image: string | null }[];
   events: { id: number; type: string; message: string | null; createdAt: string }[];
   whatsappUrl: string | null; transferInfo: string | null;
 };
@@ -26,7 +27,15 @@ export default function OrderStatus({ number }: { number: string }) {
     const load = pid
       ? fetch(`/api/store/orders/${number}/sync?t=${t}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ paymentId: pid }) })
       : fetch(`/api/store/orders/${number}?t=${t}`);
-    load.then(async (r) => { if (!r.ok) throw new Error('No encontramos el pedido'); setD(await r.json()); }).catch((e) => setErr(e.message));
+    load.then(async (r) => {
+      if (!r.ok) throw new Error('No encontramos el pedido');
+      const data: Data = await r.json();
+      setD(data);
+      // compra para el píxel y Analytics: solo cuando el pedido ya está pagado (el servidor la manda igual con el mismo id)
+      if (['paid', 'preparing', 'shipped', 'delivered'].includes(data.order.status)) {
+        trackPurchaseOnce(data.order.number, data.items.map((i) => ({ id: i.productId ?? i.id, name: i.name, price: i.unitPrice, qty: i.qty, size: i.size, color: i.color ?? null })), data.order.total, data.order.paymentMethod);
+      }
+    }).catch((e) => setErr(e.message));
   }, [number]);
   if (err) return <div className="mx-auto max-w-xl px-4 py-24 text-center"><h1 className="t-head text-4xl">{err}</h1><Link href="/" className="btn btn-ink mt-6">Volver a la tienda</Link></div>;
   if (!d) return <div className="min-h-[60vh]" aria-busy="true" />;

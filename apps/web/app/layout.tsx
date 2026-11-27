@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { SITE_URL } from '@/lib/format';
+import { META_DOMAIN_VERIFICATION, GOOGLE_SITE_VERIFICATION } from '@/lib/tracking-ids';
 
 const archivo = localFont({
   src: [
@@ -23,6 +24,10 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
   icons: { icon: [{ url: '/icon.svg', type: 'image/svg+xml' }, { url: '/favicon.ico' }], apple: '/apple-icon.png' },
   formatDetection: { telephone: false },
+  verification: {
+    google: GOOGLE_SITE_VERIFICATION || undefined,
+    other: META_DOMAIN_VERIFICATION ? { 'facebook-domain-verification': META_DOMAIN_VERIFICATION } : undefined,
+  },
 };
 export const viewport: Viewport = { themeColor: '#0a0f1a', width: 'device-width', initialScale: 1, viewportFit: 'cover' };
 

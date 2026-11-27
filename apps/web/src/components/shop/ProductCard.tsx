@@ -42,7 +42,7 @@ export default function ProductCard({ p, show3d, priority, transferPct = 0, onNe
           <div className="absolute left-3 top-3 flex flex-col items-start gap-1.5">
             {off > 0 && <span className="tag bg-turf text-white"><span>{off}% OFF</span></span>}
             {p.isNew && <span className="tag bg-ink text-white"><span>Nuevo</span></span>}
-            {!p.inStock && <span className="tag bg-white text-ink"><span>Sin stock</span></span>}
+            {!p.inStock && <span className="tag bg-ink text-white"><span>Agotado</span></span>}
             {lowStock && <span className="tag bg-ball text-ink"><span>Últimas unidades</span></span>}
           </div>
           <div className="absolute bottom-3 right-3 flex gap-1.5" aria-hidden>

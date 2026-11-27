@@ -7,10 +7,12 @@ import { AnimatePresence, motion } from 'motion/react';
 import type { Business, Product } from '@/lib/types';
 import { money, pick } from '@/lib/format';
 import { useCart } from '@/lib/cart';
+import { track, trackCustom } from '@/lib/track';
 import { SHOW_3D } from '@/lib/features';
 import Pic from '../Pic';
 import Reel from '../Reel';
 import ARButton from './ARButton';
+import ShippingEstimate from './ShippingEstimate';
 
 const Viewer3D = dynamic(() => import('./Viewer3D'), { ssr: false });
 const isKid = (s: string) => /^\d+$/.test(s);
@@ -29,6 +31,9 @@ export default function ProductView({ initial, family, business }: { initial: Pr
   const single = p.variants.length === 1;
 
   useEffect(() => { if (single) setSize(p.variants[0].size); }, [p, single]);
+  const tItem = (qty = 1, price = p.price, size: string | null = null) => ({ id: p.id, name: p.name, price, qty, size, color: p.colorName, category: p.category?.name ?? null });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { track('ViewContent', { items: [tItem()] }); }, [p.id]);
   const swap = (np: Product) => {
     setP(np); setSize(null); setQty(1); setSlide(0); setError(null); if (!(SHOW_3D && np.model)) setTab('galeria');
     window.history.replaceState(null, '', `/producto/${np.slug}`);
@@ -36,14 +41,23 @@ export default function ProductView({ initial, family, business }: { initial: Pr
   };
   const front = p.images.find((i) => i.role === 'front') ?? p.images[0];
   const priceNow = variant?.price ?? p.price;
+  const ml = p.sourceUrl && /^https:\/\/([a-z0-9-]+\.)*mercadoli[bv]re\.com\.ar\//i.test(p.sourceUrl) ? p.sourceUrl : null;
   const wa = business.whatsapp
     ? `https://wa.me/${business.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`¡Hola Brox! Quiero la ${p.name}${size ? ` en talle ${size}` : ''} (${money(priceNow)}). ¿Hay stock?`)}`
     : null;
+  // sin stock (toda la prenda o el talle elegido): avisar cuando vuelva
+  const soldOut = !p.inStock || (!!variant && !variant.available);
+  const notify = business.whatsapp && soldOut
+    ? `https://wa.me/${business.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`¡Hola Brox! Avisame cuando vuelva la ${p.name}${variant ? ` en talle ${variant.size}` : ''}, por favor.`)}`
+    : null;
+  // Mercado Libre: la publicación de la prenda si la tiene; si no, las publicaciones de la marca
+  const firstAvailable = p.variants.find((v) => v.available) ?? null;
 
   const addToCart = () => {
     if (!variant) { setError('Elegí tu talle'); return; }
     if (!variant.available) { setError('Ese talle está sin stock'); return; }
     add({ variantId: variant.id, productId: p.id, slug: p.slug, name: p.name, size: variant.size, color: p.colorName, price: variant.price, image: pick(front, 320), max: variant.stock }, qty);
+    track('AddToCart', { items: [tItem(qty, variant.price, variant.size)] });
   };
   const sizes = useMemo(() => p.variants, [p]);
   // galería: los videos de la prenda en la cancha primero (si tiene) y después las fotos
@@ -145,7 +159,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
               ))}
             </div>
             <p className="mt-2 min-h-5 text-sm" aria-live="polite">
-              {error ? <span className="text-turf">{error}</span> : variant ? (variant.available ? (variant.stock <= variant.lowStock ? <span className="text-turf">¡Quedan {variant.stock}!</span> : <span className="text-mute">En stock</span>) : <span className="text-mute">Sin stock en este talle</span>) : null}
+              {error ? <span className="text-turf">{error}</span> : variant ? (variant.available ? (variant.stock <= Math.max(variant.lowStock, 5) ? <span className="text-turf">¡Quedan {variant.stock}!</span> : <span className="text-mute">En stock</span>) : <span className="font-semibold text-turf">Agotado en este talle</span>) : null}
             </p>
           </fieldset>
 
@@ -155,9 +169,13 @@ export default function ProductView({ initial, family, business }: { initial: Pr
               <span className="t-num w-6 text-center" aria-live="polite">{qty}</span>
               <button className="grid h-12 w-11 place-items-center text-xl" onClick={() => setQty(Math.min(variant?.stock ?? 9, qty + 1))} aria-label="Sumar uno">+</button>
             </div>
-            <button className="btn btn-red flex-1" onClick={addToCart} disabled={!p.inStock}>{p.inStock ? 'Agregar al carrito' : 'Sin stock'}</button>
+            <button className="btn btn-red flex-1" onClick={addToCart} disabled={!p.inStock}>{p.inStock ? 'Agregar al carrito' : 'Agotado'}</button>
           </div>
-          {wa && <a href={wa} target="_blank" rel="noopener" className="btn btn-ghost mt-3 w-full">Consultar por WhatsApp</a>}
+          {notify
+            ? <a href={notify} target="_blank" rel="noopener" className="btn btn-ink mt-3 w-full">Avisame cuando llegue</a>
+            : wa && <a href={wa} target="_blank" rel="noopener" className="btn btn-ghost mt-3 w-full" onClick={() => track('Contact', { items: [tItem(1, priceNow, size)] })}>Consultar por WhatsApp</a>}
+          {ml && <a href={ml} target="_blank" rel="noopener" className="btn mt-3 w-full text-[#2d3277] [--btn-bg:#ffe600]" onClick={() => trackCustom('ClickMercadoLibre', { content_ids: [String(p.id)], content_name: p.name, value: priceNow, currency: 'ARS' })}>Comprar en Mercado Libre</a>}
+          {ml && business.transferDiscountPct > 0 && <p className="mt-1.5 text-center text-xs text-mute">Comprando en la web con transferencia tenés {business.transferDiscountPct}% off.</p>}
 
           <ul className="mt-8 space-y-2">
             {p.features.map((f) => (
@@ -166,7 +184,7 @@ export default function ProductView({ initial, family, business }: { initial: Pr
           </ul>
           {p.description && <p className="mt-6 max-w-[60ch] text-[17px] leading-relaxed text-ink/85">{p.description}</p>}
           <dl className="mt-8 divide-y divide-black/10 rounded-2xl bg-white ring-1 ring-black/10">
-            <div className="flex gap-4 p-4"><dt className="t-cond w-24 shrink-0 text-mute">Envío</dt><dd>{business.shippingText ?? 'A todo el país'}. El costo se coordina según tu código postal.</dd></div>
+            <div className="flex gap-4 p-4"><dt className="t-cond w-24 shrink-0 text-mute">Envío</dt><dd className="min-w-0 flex-1"><ShippingEstimate variantId={(variant?.available ? variant.id : firstAvailable?.id) ?? null} qty={qty} fallbackText={`${business.shippingText ?? 'A todo el país'}. Calculá el costo con tu código postal.`} /></dd></div>
             <div className="flex gap-4 p-4"><dt className="t-cond w-24 shrink-0 text-mute">Pago</dt><dd>Mercado Pago, transferencia{business.transferDiscountPct ? ` (${business.transferDiscountPct}% off)` : ''} o pedido por WhatsApp.</dd></div>
             <div className="flex gap-4 p-4"><dt className="t-cond w-24 shrink-0 text-mute">Cambios</dt><dd>Tenés 10 días para arrepentirte de la compra. <Link href="/arrepentimiento" className="underline underline-offset-4">Cómo hacerlo</Link></dd></div>
           </dl>
