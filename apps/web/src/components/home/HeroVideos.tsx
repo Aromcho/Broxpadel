@@ -1,6 +1,6 @@
 'use client';
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import clsx from 'clsx';
 import type { Video } from '@/lib/types';
 import { pick } from '@/lib/format';
@@ -9,7 +9,7 @@ import { Logo } from '@/components/Logo';
 type Feature = { kicker: string; title: string; body: string };
 
 /** Portada: los videos de la cancha de @broxpadel de fondo, uno detrás de otro, con el logo encima. */
-export default function HeroVideos({ videos, features }: { videos: Video[]; features: Feature[] }) {
+export default function HeroVideos({ videos, features, tag, promo }: { videos: Video[]; features: Feature[]; tag?: string | null; promo?: ReactNode }) {
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
   const [mobile, setMobile] = useState(false);
@@ -65,6 +65,7 @@ export default function HeroVideos({ videos, features }: { videos: Video[]; feat
 
         <div className="absolute inset-x-0 top-[22svh] px-5 text-center md:top-[24svh]">
           <h1 className="sr-only">Brox Padel · Indumentaria de pádel</h1>
+          {tag && <a href="#promo" className="t-cond mb-6 inline-block rounded-full bg-ball px-4 py-1.5 text-[15px] text-ink shadow-[0_4px_24px_rgba(0,0,0,.35)]">{tag}</a>}
           <Logo className="mx-auto h-auto w-[min(80vw,580px)] drop-shadow-[0_6px_30px_rgba(0,0,0,.55)]" />
           <p className="t-head mx-auto mt-6 max-w-[22ch] text-[clamp(1.5rem,5.4vw,2.4rem)] [text-shadow:0_2px_18px_rgba(0,0,0,.6)]">Ropa que rinde como vos.</p>
           <p className="mx-auto mt-3 max-w-[38ch] text-white/85 [text-shadow:0_1px_12px_rgba(0,0,0,.8)]">Remeras y shorts de pádel con tecnología Dry-Wick y UPF 50+.</p>
@@ -84,6 +85,8 @@ export default function HeroVideos({ videos, features }: { videos: Video[]; feat
           </div>
         )}
       </section>
+
+      {promo}
 
       <section className="bg-night text-white" aria-label="Por qué BROX">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:grid-cols-2 md:px-6 lg:grid-cols-4">

@@ -3,7 +3,7 @@ import { getBootstrap } from '@/lib/api';
 import HeroVideos from '@/components/home/HeroVideos';
 import Catalog from '@/components/shop/Catalog';
 import Stories from '@/components/shop/Stories';
-import { Collections, InfoStrip, OnCourt, PromoBanners, SectionTitle } from '@/components/home/Sections';
+import { Collections, HeroPromo, InfoStrip, OnCourt, PromoBanners, SectionTitle } from '@/components/home/Sections';
 import Link from 'next/link';
 
 export const metadata: Metadata = { alternates: { canonical: '/' } };
@@ -17,9 +17,12 @@ export default async function Home() {
     { kicker: 'Comodidad', title: 'Poliéster ultraliviano', body: 'Tan liviano y respirable que vas a sentir que no llevás nada puesto.' },
     { kicker: 'Envíos', title: business.shippingText ?? 'Envíos a todo el país', body: business.transferDiscountPct ? `Y ${business.transferDiscountPct}% off si pagás con transferencia.` : 'Desde Villa Gesell a tu casa.' },
   ];
+  // promo destacada (Panel → Banners → "Destacado en portada"): pastilla en el video + franja debajo
+  const promo = data.banners.find((b) => b.placement === 'hero') ?? null;
   return (
     <>
-      <HeroVideos videos={[...data.backgroundVideos, ...data.courtVideos].filter((v, i, a) => a.findIndex((x) => x.id === v.id) === i)} features={features} />
+      <HeroVideos videos={[...data.backgroundVideos, ...data.courtVideos].filter((v, i, a) => a.findIndex((x) => x.id === v.id) === i)} features={features}
+        tag={promo ? [promo.kicker, promo.title].filter(Boolean).join(' · ') : null} promo={promo && <HeroPromo banner={promo} />} />
 
       <section id="catalogo" className="mx-auto max-w-7xl scroll-mt-16 px-4 pb-16 pt-10 md:px-6 md:pt-16">
         <div id="historias" className="mb-10 scroll-mt-24"><Stories stories={data.stories} /></div>

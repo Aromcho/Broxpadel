@@ -5,7 +5,7 @@ export default function Page() {
     <Crud title="Banners" endpoint="/admin/banners" empty="Todavía no hay banners."
       defaults={{ placement: 'promo', active: true }}
       fields={[
-        { key: 'placement', label: 'Ubicación', type: 'select', options: [{ value: 'promo', label: 'Promo (portada, con video)' }, { value: 'strip', label: 'Franja superior (anuncio)' }] },
+        { key: 'placement', label: 'Ubicación', type: 'select', options: [{ value: 'hero', label: 'Destacado en portada (debajo del video, ej. Black Friday)' }, { value: 'promo', label: 'Promo (portada, con video)' }, { value: 'strip', label: 'Franja superior (anuncio)' }] },
         { key: 'kicker', label: 'Volanta', type: 'text' },
         { key: 'title', label: 'Título', type: 'text', required: true, wide: true },
         { key: 'subtitle', label: 'Texto', type: 'textarea' },
@@ -17,7 +17,7 @@ export default function Page() {
         { key: 'endsAt', label: 'Hasta (opcional)', type: 'date' },
         { key: 'active', label: 'Activo', type: 'bool' },
       ]}
-      display={(r) => ({ title: String(r.title), sub: r.placement === 'strip' ? 'Franja superior' : 'Promo en portada', badge: r.active ? null : 'Pausado' })}
+      display={(r) => ({ title: String(r.title), sub: r.placement === 'hero' ? 'Destacado en portada' : r.placement === 'strip' ? 'Franja superior' : 'Promo en portada', badge: r.active ? null : 'Pausado' })}
     />
   );
 }

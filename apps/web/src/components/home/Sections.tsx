@@ -62,6 +62,27 @@ export function OnCourt({ products }: { products: Product[] }) {
   );
 }
 
+/** Promo destacada debajo del video de la portada (Panel → Banners → "Destacado en portada"), p. ej. Black Friday. */
+export function HeroPromo({ banner }: { banner: Banner }) {
+  return (
+    <section id="promo" className="relative scroll-mt-16 overflow-hidden bg-ball text-ink" aria-label={banner.kicker ?? banner.title}>
+      <div className="mx-auto grid max-w-7xl gap-6 px-5 py-10 md:grid-cols-[1fr_auto] md:items-end md:px-6 md:py-14">
+        <div>
+          {banner.kicker && (
+            <p className="t-head flex items-center gap-4 text-[clamp(3.2rem,13vw,8rem)] leading-[.85]">
+              <span className="speed ml-1 shrink-0 scale-125 text-brand md:ml-0 md:scale-[2]" aria-hidden><i /><i /><i /></span>
+              {banner.kicker}
+            </p>
+          )}
+          <h2 className="t-head mt-4 text-[clamp(1.7rem,4.6vw,2.8rem)]">{banner.title}</h2>
+          {banner.subtitle && <p className="mt-3 max-w-[54ch] text-ink/80">{banner.subtitle}</p>}
+        </div>
+        {banner.ctaHref && <Link href={banner.ctaHref} className="btn btn-ink self-start md:self-end">{banner.ctaLabel ?? 'Ver más'}</Link>}
+      </div>
+    </section>
+  );
+}
+
 export function PromoBanners({ banners }: { banners: Banner[] }) {
   const list = banners.filter((b) => b.placement === 'promo');
   if (!list.length) return null;
